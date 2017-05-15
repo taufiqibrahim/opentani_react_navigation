@@ -21,6 +21,7 @@ const navReducer = (state, action) => {
 @connect(state => ({
   nav: state.nav
 }))
+
 class AppWithNavigationState extends Component {
   componentDidMount(){
     BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid.bind(this));
@@ -31,7 +32,10 @@ class AppWithNavigationState extends Component {
 
   // Handling Android Back Button
   handleBackAndroid(){
-    console.log(this);
+    /*console.log(this);
+    console.log(this.props.nav);
+    console.log(this.props.nav.routes);
+    console.log(this.props.nav.routes.length);*/
     const {nav, dispatch} = this.props;
     if (nav && nav.routes && nav.routes.length>1) {
       dispatch(NavigationActions.back());

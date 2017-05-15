@@ -239,7 +239,8 @@ export default class SwiperComponent extends Component {
           : (
               <Button 
                 btnStyle={styles.buttonStyles} 
-                btnLabel='Skip' 
+                txtStyle={styles.buttonTextStyle}
+                btnLabel='LEWATI' 
                 btnOnPress={this.onSkipBtn}
                 // btnOnPress={this.props.onSkipBtn} 
               />

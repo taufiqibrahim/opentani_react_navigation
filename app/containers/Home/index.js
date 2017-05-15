@@ -7,7 +7,7 @@ import GridButton from '../../components/Button/GridButton';
 import styles from './Styles.js';
 import textStyles from '../../styles/TextStyles'
 
-class MainScreen extends Component {
+class HomeScreen extends Component {
   static navigationOptions = {
     title: 'Opentani'
   };
@@ -92,4 +92,4 @@ class MainScreen extends Component {
   }
 }
 
-export default MainScreen
+export default HomeScreen

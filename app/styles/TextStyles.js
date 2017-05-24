@@ -2,6 +2,14 @@ import {StyleSheet, Dimensions} from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, COLOR_DEV } from './ColorPalette';
 
 export default StyleSheet.create({
+	XL: {
+		fontFamily: 'sans-serif-light',
+		fontSize: 48,
+		fontWeight: 'bold',
+		alignSelf: 'center',
+		textAlign: 'center',
+		marginBottom: 8,		
+	},
 	TITLE: {
 		fontFamily: 'sans-serif-light',
 		fontSize: 36,
@@ -35,7 +43,6 @@ export default StyleSheet.create({
 	SUBTITLE: {
 		fontFamily: 'sans-serif-light',
 		fontSize: 32,
-		alignSelf: 'center',
 		textAlign: 'center',
 		marginBottom: 8,			
 	},

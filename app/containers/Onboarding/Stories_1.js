@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 import {
   COLOR_GREEN,
-  COLOR_BACKGND,
+  COLOR_LIGHT,
 } from '../../styles/ColorPalette';
 import text_styles from '../../styles/TextStyles';
 
-export default class Onboarding1 extends Component {
+export default class Stories_1 extends Component {
   constructor(props) {
     super(props);
     this.state =  { 
@@ -25,8 +25,8 @@ export default class Onboarding1 extends Component {
           <Text>Image here</Text>
         </View>
         <View style={styles.boxLower}>
-          <Text style={[text_styles.h1, {color: COLOR_GREEN}]}>{this.props.onboard_title}</Text>
-          <Text style={text_styles.body}>{this.props.onboard_subtitle}</Text>
+          <Text style={[text_styles.H1, {color: COLOR_GREEN}]}>{this.props.onboard_title}</Text>
+          <Text style={text_styles.BODY}>{this.props.onboard_subtitle}</Text>
         </View>
         <View style={styles.footer} />
       </View>
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footer: {
-    flex: 1,
-    backgroundColor: COLOR_BACKGND,
+    flex: 3,
+    backgroundColor: COLOR_LIGHT,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
@@ -51,14 +51,14 @@ const styles = StyleSheet.create({
   },
   boxUpper: {
     flex: 6,
-    backgroundColor: COLOR_BACKGND,
+    backgroundColor: COLOR_LIGHT,
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'center',
   },
   boxLower: {
     flex: 4,
-    backgroundColor: COLOR_BACKGND,
+    backgroundColor: COLOR_LIGHT,
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'center',

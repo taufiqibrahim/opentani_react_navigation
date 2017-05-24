@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {
   View,
+  ScrollView,
   Text,
   TextInput,
   StyleSheet,
 } from 'react-native';
 import Button from '../Button/Button';
+import FadeInView from '../AnimatedView/FadeInView';
 import {
   COLOR_GREEN,
   COLOR_BACKGND,
@@ -15,7 +17,10 @@ import {
 export default class Typeform extends Component {
 	render(){
     return (
-      <View style={styles.wrapper}>
+      <ScrollView
+        scrollEnabled={false}
+        contentContainerStyle={styles.wrapper}
+      >
         <View style={styles.boxUpper}>
           <Text style={this.props.subtitleTextStyle}>
             {this.props.subtitle}
@@ -24,6 +29,8 @@ export default class Typeform extends Component {
         <View style={styles.formWrapper}>
           <TextInput
             style={this.props.inputTextStyle}
+            keyboardType={this.props.inputKeyboardType}
+            autoCapitalize={this.props.inputAutoCapitalize}
             placeholder={this.props.inputPlaceholder}
             placeholderTextColor={this.props.inputPlaceholderColor}
             onChangeText={(text) => this.props.onChangeTextHandler(text)}
@@ -31,15 +38,24 @@ export default class Typeform extends Component {
         </View>
         <View style={styles.boxLower}>
           <View style={styles.buttonWrapper}>
-            <Button 
-              btnStyle={this.props.buttonStyles} 
-              txtStyle={this.props.buttonTextStyle} 
-              btnLabel={this.props.btnLabel}
-              btnOnPress={this.props.buttonOnPress}
-            />
+            {
+              this.props.buttonShow
+              ?
+              <FadeInView>
+                <Button 
+                  buttonStyle={this.props.buttonStyles} 
+                  txtStyle={this.props.buttonTextStyle} 
+                  buttonLabel={this.props.buttonLabel}
+                  buttonOnPress={this.props.buttonOnPress}
+                /> 
+              </FadeInView>
+              :
+              <View>
+              </View>
+            }
           </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -71,13 +87,14 @@ const styles = StyleSheet.create({
   boxUpper: {
     flex: 4,
     backgroundColor: 'transparent',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     alignSelf: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     paddingHorizontal: 32,
+    marginBottom: 24,
   },
   formWrapper: {
-    flex: 2,
+    flex: 3,
     flexDirection: 'row',
     backgroundColor: 'transparent',
     alignItems: 'flex-start',
@@ -109,6 +126,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     alignSelf: 'stretch',
     justifyContent: 'center',
-    paddingHorizontal: 32,
+    paddingHorizontal: 72,
   },
 })

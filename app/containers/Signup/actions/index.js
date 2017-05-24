@@ -5,9 +5,10 @@ import {
   SIGNUP_FAILURE,
 } from './actionTypes';
 
-export function signupFormFill(name) {
+export function signupFormFill(data) {
   return {
     type: SIGNUP_FORM_FILL,
-    name
+    name: data.name,
+    phone: data.phone,
   }
 }

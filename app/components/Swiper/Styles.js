@@ -4,18 +4,21 @@ import {
 } from 'react-native';
 import {
   COLOR_GREEN,
-  COLOR_BACKGND,
+  COLOR_LIGHT,
   COLOR_GREY,
 } from '../../styles/ColorPalette';
 
 const { width, height} = Dimensions.get('window');
+
+const lowerHalf = 0.125*height;
+const widthByThree = 0.3*width;
 
 export default StyleSheet.create({
   // Set width & height to the screen size
   // Main container
   container: {
     flex: 1,
-    backgroundColor: COLOR_BACKGND,
+    backgroundColor: COLOR_LIGHT,
     // position: 'relative',
   },
   fullScreen: {
@@ -56,57 +59,32 @@ export default StyleSheet.create({
   },
   // Button wrapper
   buttonWrapper: {
-    backgroundColor: 'transparent',
     flex: 1,
-    flexDirection: 'row',
-    // position: 'absolute',
-    bottom: 0,
-    paddingHorizontal: 8,
-    paddingBottom: 64,
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    position: 'absolute',
+    bottom: lowerHalf,
+    left: 0,
+    right: 0,
+    paddingHorizontal: widthByThree,
   },
   // Button
   buttonStyles: {
     flex: 1,
     flexDirection: 'column',
     height: 36,
-    backgroundColor: 'transparent',
-    borderRadius: 8,
+    backgroundColor: COLOR_LIGHT,
+    borderRadius: 18,
+    borderWidth: 2,
+    borderColor: COLOR_GREEN,
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 8, 
-    marginBottom: 8,
   },
   // Button Text
   buttonTextStyle: {
     color: COLOR_GREEN,
-  },
-  // OK Button
-  okButtonStyles: {
-    flex: 1,
-    flexDirection: 'column',
-    height: 36,
-    backgroundColor: COLOR_GREEN,
-    borderRadius: 8,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 8, 
-    marginBottom: 8,
-  },
-  // Dummy
-  dummySpacerStyles: {
-    flex: 1,
-    flexDirection: 'column',
-    height: 36,
-    backgroundColor: 'transparent',
-    borderRadius: 8,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 8, 
-    marginBottom: 8,
   },
 });

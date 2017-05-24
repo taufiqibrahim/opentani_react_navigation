@@ -19,7 +19,7 @@ import {
 } from '../../../styles/ColorPalette';
 import TextStyles from '../../../styles/TextStyles';
 
-class SignupNameScreen extends Component {
+class SignupIdScreen extends Component {
   static navigationOptions = {
     header: null,
   };
@@ -27,38 +27,46 @@ class SignupNameScreen extends Component {
   state={
     buttonShow: false,
     data: {
-      name: null,
+      name: this.props.data.name,
       phone: null,
     }
   }
-
+  
   onChangeTextHandler(text) {
     let newData = this.state.data;
-    newData.name = text;
+    newData.phone = text;
     this.setState({data: newData});
     this.props.actions.signupFormFill(newData);
-    if (text.length >= 3) { this.setState({buttonShow: true}) }
-    if (text.length < 3) { this.setState({buttonShow: false}) }
+    if (text.length >= 10) { this.setState({buttonShow: true}) }
+    if (text.length < 10) { this.setState({buttonShow: false}) }
   }
 
-  onButtonPressed () {
-    const navigateActions = NavigationActions.navigate({
-      routeName: 'Signup',
-      params: {},
-      action: NavigationActions.navigate({ routeName: 'SignupPhone' })
-    });
-    this.props.navigation.dispatch(navigateActions);
+  onButtonPressed() {
+    console.log('onButtonPressed')
   }
 
-	render(){
-		return(
+  render(){
+    return(
       <Typeform
-        subtitle='Siapa nama Anda?'
+        subtitle={
+          <Text>
+            Halo, 
+            <Text style={{fontWeight: 'bold'}}>
+              {this.props.data.name}
+            </Text>
+            <Text style={{fontSize: 24}}>
+              {'\n'}
+            </Text>
+            <Text style={{fontSize: 24}}>
+              {'\n'}Silakan mengisi nomor telepon Anda
+            </Text>
+          </Text>
+        }
         subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
-        inputPlaceholder='Oemar Bakrie'
-        inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
+        inputPlaceholder='08XXXXXXXXXX'
+        inputPlaceholderColor= {COLOR_TEXT_LIGHT}
         inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
-        inputAutoCapitalize='words'
+        inputKeyboardType='phone-pad'
         onChangeTextHandler={this.onChangeTextHandler.bind(this)}
         buttonShow={this.state.buttonShow}
         buttonLabel='Lanjut'
@@ -67,7 +75,7 @@ class SignupNameScreen extends Component {
         buttonOnPress={this.onButtonPressed.bind(this)}
       />
     )
-	}
+  }
 }
 
 function mapStateToProps(state) {
@@ -85,15 +93,14 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupNameScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SignupIdScreen)
 
 const styles = StyleSheet.create({
   // Button
   buttonStyles: {
     height: 56,
-    //flex: 1,
     backgroundColor: COLOR_GREEN,
-    borderRadius: 24,
+    borderRadius: 2,
     borderWidth: 2,
     borderColor: COLOR_LIGHT,
     alignSelf: 'stretch',

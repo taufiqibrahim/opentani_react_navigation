@@ -21,6 +21,7 @@ export default function signup(state = initialState, action) {
         isSigningIn: false,
         isFillingForm: true,
         name: action.name,
+        phone: action.phone,
       })
     case SIGNUP_REQUEST:
       return Object.assign({}, state, {
@@ -28,6 +29,7 @@ export default function signup(state = initialState, action) {
         isSigningIn: true,
         isFillingForm: false,
         name: action.name,
+        phone: action.phone,
       })
     default:
       return state;

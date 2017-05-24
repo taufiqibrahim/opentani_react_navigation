@@ -38,7 +38,9 @@ export default class SwiperComponent extends Component {
       // Current index
       index = total > 1 ? Math.min(props.index, total - 1) : 0,
       // Current offset
-      offset = width * index;
+      offset = width * index,
+      hideSkipButton = false,
+      cutOffIndex = total - 2;
 
     const state = {
       total,
@@ -46,6 +48,8 @@ export default class SwiperComponent extends Component {
       offset,
       width,
       height,
+      hideSkipButton,
+      cutOffIndex,
     };
 
     // Component internals as a class property and not state to avoid rerenders
@@ -63,7 +67,9 @@ export default class SwiperComponent extends Component {
    * @param {object} e native event
    */
   onScrollBegin = e => {
+    console.log(this.state.index)
     this.internals.isScrolling = true;
+    if (this.state.index === this.state.cutOffIndex) {this.toogleSkipButtonVisibility(this.state.index)};
   }
 
   /**
@@ -77,7 +83,7 @@ export default class SwiperComponent extends Component {
       e.nativeEvent.contentOffset ? e.nativeEvent.contentOffset.x
       // When scrolled with .scrollTo() on Android there is no contentOffset
       : e.nativeEvent.position * this.state.width
-    );
+    )
   }
 
   /**
@@ -97,6 +103,7 @@ export default class SwiperComponent extends Component {
          (index === 0 || index === children.length - 1)
        ) {
       this.internals.isScrolling = false;
+      //this.toogleSkipButtonVisibility();
     }
   }
 
@@ -121,6 +128,17 @@ export default class SwiperComponent extends Component {
     this.internals.offset = offset;
     // Update index in the state
     this.setState({index});
+    this.toogleSkipButtonVisibility(this.state.index);
+    console.log('updateIndex:' + this.state.index)
+  }
+
+  toogleSkipButtonVisibility = (idx) => {
+    console.log('toogleSkipButtonVisibility');
+    if (idx == this.state.cutOffIndex) {
+      this.setState({hideSkipButton: true})
+    } else {
+      this.setState({hideSkipButton: false})
+    }
   }
 
   /**
@@ -209,7 +227,6 @@ export default class SwiperComponent extends Component {
       <View
         pointerEvents="none"
         style={styles.pagination}
-        //style={[styles.pagination, styles.fullScreen]}
       >
         {dots}
       </View>
@@ -222,34 +239,26 @@ export default class SwiperComponent extends Component {
    */
   renderButton = () => {
     const lastScreen = this.state.index === this.state.total - 1;
-
+    //console.log('lastScreen:'+lastScreen)
+    let test = this.state.hideSkipButton === lastScreen;
+    //console.log('compare: ' + test)
     return(
       <View
-        pointerEvents="box-none"
+        //pointerEvents="box-none"
         style={styles.buttonWrapper}
-        //style={[styles.buttonWrapper, styles.fullScreen]}
       >
-        {lastScreen ? (<View style={styles.dummySpacerStyles} />) : (<View/>) }
-        {lastScreen ? (<View style={styles.dummySpacerStyles} />) : (<View/>) }
-        {lastScreen ? (<View style={styles.dummySpacerStyles} />) : (<View/>) }
-        {lastScreen ? (<View style={styles.dummySpacerStyles} />) : (<View/>) }
         {
-          lastScreen
+          this.state.hideSkipButton
           ? (<View />) 
           : (
               <Button 
-                btnStyle={styles.buttonStyles} 
+                buttonStyle={styles.buttonStyles} 
                 txtStyle={styles.buttonTextStyle}
-                btnLabel='LEWATI' 
-                btnOnPress={this.onSkipBtn}
-                // btnOnPress={this.props.onSkipBtn} 
+                buttonLabel='LEWATI' 
+                buttonOnPress={this.onSkipBtn} 
               />
             )
         }
-        {lastScreen ? (<View/>) : (<View style={styles.dummySpacerStyles} />) }
-        {lastScreen ? (<View/>) : (<View style={styles.dummySpacerStyles} />) }
-        {lastScreen ? (<View/>) : (<View style={styles.dummySpacerStyles} />) }
-        {lastScreen ? (<View/>) : (<View style={styles.dummySpacerStyles} />) }
       </View>
     )
   }
@@ -276,10 +285,10 @@ export default class SwiperComponent extends Component {
       >
         {/* Render screens*/}
         { this.renderScrollView(children) }
-        {/* Render pagination*/}
-        { this.renderPagination() }
         {/* Render button*/}
         { this.renderButton() }
+        {/* Render pagination*/}
+        { this.renderPagination() }
       </View>
     )
   }

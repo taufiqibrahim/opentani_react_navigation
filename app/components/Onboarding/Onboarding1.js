@@ -5,9 +5,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import {
-  COLOR_PRIMARY, COLOR_SECONDARY, COLOR_OPENTANI_GREEN,
-  COLOR_OPENTANI_GREY, COLOR_OPENTANI_DARKGREY, COLOR_OPENTANI_DARKESTGREY,
-  COLOR_DEV, COLOR_OPENTANI_LIGHTGREY
+  COLOR_GREEN,
+  COLOR_BACKGND,
 } from '../../styles/ColorPalette';
 import text_styles from '../../styles/TextStyles';
 
@@ -26,7 +25,7 @@ export default class Onboarding1 extends Component {
           <Text>Image here</Text>
         </View>
         <View style={styles.boxLower}>
-          <Text style={[text_styles.h1, {color: COLOR_OPENTANI_GREEN}]}>{this.props.onboard_title}</Text>
+          <Text style={[text_styles.h1, {color: COLOR_GREEN}]}>{this.props.onboard_title}</Text>
           <Text style={text_styles.body}>{this.props.onboard_subtitle}</Text>
         </View>
         <View style={styles.footer} />
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
-    backgroundColor: COLOR_PRIMARY,
+    backgroundColor: COLOR_BACKGND,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
@@ -52,14 +51,14 @@ const styles = StyleSheet.create({
   },
   boxUpper: {
     flex: 6,
-    backgroundColor: COLOR_DEV,
+    backgroundColor: COLOR_BACKGND,
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'center',
   },
   boxLower: {
     flex: 4,
-    backgroundColor: COLOR_PRIMARY,
+    backgroundColor: COLOR_BACKGND,
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'center',

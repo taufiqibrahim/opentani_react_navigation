@@ -6,9 +6,8 @@ import {
 } from 'react-native';
 import Button from '../Button/Button';
 import {
-  COLOR_PRIMARY, COLOR_SECONDARY, COLOR_OPENTANI_GREEN,
-  COLOR_OPENTANI_GREY, COLOR_OPENTANI_DARKGREY, COLOR_OPENTANI_DARKESTGREY,
-  COLOR_DEV, COLOR_OPENTANI_LIGHTGREY
+  COLOR_GREEN,
+  COLOR_BACKGND,
 } from '../../styles/ColorPalette';
 import text_styles from '../../styles/TextStyles';
 
@@ -20,11 +19,16 @@ export default class OnboardingFinal extends Component {
      };
   }
 
+  onSignupBtn(){
+    console.log(this.props)
+    //this.props.navigation.navigate('Main');
+  }
+
   render(){
     return(
       <View style={styles.wrapper}>
         <View style={styles.boxUpper}>
-          <Text style={[text_styles.title, {color: COLOR_OPENTANI_GREEN}]}>
+          <Text style={[text_styles.title, {color: COLOR_GREEN}]}>
             {this.props.onboard_title}
           </Text>
           <Text style={text_styles.body}>
@@ -35,8 +39,9 @@ export default class OnboardingFinal extends Component {
           <View style={styles.buttonWrapper}>
             <Button 
               btnStyle={styles.buttonStyles} 
-              txtStyle={styles.btnTextStyle} 
-              btnLabel='Masuk' 
+              txtStyle={styles.buttonTextStyle} 
+              btnLabel='BERGABUNG'
+              btnOnPress={this.props.btnOnPress}
             />
           </View>
         </View>
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
   // Footer
   footer: {
     flex: 1,
-    backgroundColor: COLOR_PRIMARY,
+    backgroundColor: COLOR_BACKGND,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
@@ -65,8 +70,8 @@ const styles = StyleSheet.create({
   },
   // Upper Box
   boxUpper: {
-    flex: 1,
-    backgroundColor: COLOR_PRIMARY,
+    flex: 2,
+    backgroundColor: COLOR_BACKGND,
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
   // Lower Box
   boxLower: {
     flex: 1,
-    backgroundColor: COLOR_PRIMARY,
+    backgroundColor: COLOR_BACKGND,
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
   // Button
   buttonStyles: {
     height: 48,
-    backgroundColor: COLOR_OPENTANI_GREEN,
+    backgroundColor: COLOR_GREEN,
     borderRadius: 16,
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
   // Button Text Style
   buttonTextStyle: {
     fontFamily: 'sans-serif',
-    fontSize: 16,
-    color: COLOR_PRIMARY,
+    fontSize: 24,
+    color: COLOR_BACKGND,
   }
 })

@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import devToolsEnhancer from 'remote-redux-devtools';
-import getRootReducer from './reducers';
+import rootReducer from './reducers';
 
-export default function getStore(navReducer){
+export default function getStore(){
   const store = createStore(
-    getRootReducer(navReducer),
+    rootReducer,
     // undefined,
     // applyMiddleware(thunk),
     devToolsEnhancer()

@@ -6,6 +6,18 @@ import {
   COLOR_DEV,
 } from '../styles/ColorPalette';
 
+/*
+ * working on v1.0.0-beta9
+ *
+ */
+const navOptions = {
+  navigationOptions: {
+    header: null
+  },
+}
+/*
+ * not working on 1.0.0-beta9
+
 const navOptions = {
   navigationOptions: {
     header: {
@@ -22,5 +34,6 @@ const navOptions = {
     }
   },
 }
+*/
 
 export default navOptions;

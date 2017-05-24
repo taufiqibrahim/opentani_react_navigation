@@ -2,44 +2,44 @@ import {StyleSheet, Dimensions} from 'react-native';
 import { COLOR_PRIMARY, COLOR_SECONDARY, COLOR_DEV } from './ColorPalette';
 
 export default StyleSheet.create({
-	title: {
+	TITLE: {
 		fontFamily: 'sans-serif-light',
-		fontSize: 32,
+		fontSize: 36,
 		fontWeight: 'bold',
 		alignSelf: 'center',
 		textAlign: 'center',
 		marginBottom: 8,		
 	},
-	h1: {
+	H1: {
 		fontFamily: 'sans-serif-light',
-		fontSize: 24,
+		fontSize: 28,
 		fontWeight: 'bold',
 		marginBottom: 8,
 		alignSelf: 'center',
 		textAlign: 'center',		
 	},
-	h2: {
+	H2: {
 		fontFamily: 'sans-serif',
-		fontSize: 18,
+		fontSize: 20,
 		alignSelf: 'center',
 		textAlign: 'center',
 		marginBottom: 8,		
 	},
-	body: {
+	BODY: {
 		fontFamily: 'sans-serif-light',
-		fontSize: 15,
+		fontSize: 16,
 		alignSelf: 'center',
 		textAlign: 'center',
 		marginBottom: 8,		
 	},
-	text_title_large: {
-		fontFamily: 'sans-serif',
-		fontSize: 56,
-		color: '#2BA84A',
+	SUBTITLE: {
+		fontFamily: 'sans-serif-light',
+		fontSize: 32,
 		alignSelf: 'center',
 		textAlign: 'center',
+		marginBottom: 8,			
 	},
-	text_description: {
+	DESCRIPTION: {
 		fontFamily: 'sans-serif',
 		fontSize: 14,
 		color: '#505050',
@@ -47,14 +47,17 @@ export default StyleSheet.create({
 		alignItems: 'stretch',
 		textAlign: 'center',
 	},
-	text_input: {
-		fontFamily: 'sans-serif',
-		fontSize: 16,
-		color: '#505050',
-		alignSelf: 'stretch',
-		alignItems: 'stretch',
+	INPUT: {
+		flex: 1,
+		flexDirection: 'column',
+		fontFamily: 'sans-serif-light',
+		fontSize: 32,
+		fontWeight: 'normal',
+		//alignSelf: 'stretch',
+		//alignItems: 'stretch',
+		textAlign: 'center',
 	},
-	text_error: {
+	ERROR: {
 		fontFamily: 'sans-serif',
 		fontSize: 16,
 		color: 'red',

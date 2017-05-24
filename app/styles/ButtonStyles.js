@@ -1,10 +1,14 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import {
+  COLOR_GREEN,
+  COLOR_BACKGND,
+} from './ColorPalette';
 
 export default StyleSheet.create({
 
 	button_fill_large: {
 		height: 48,
-		backgroundColor: '#2BA84A',
+		backgroundColor: COLOR_GREEN,
 		borderRadius: 8,
 		alignSelf: 'stretch',
 		alignItems: 'stretch',
@@ -24,7 +28,7 @@ export default StyleSheet.create({
 
 	button_line_large: {
 		height: 48,
-		borderColor: '#2BA84A',
+		borderColor: COLOR_GREEN,
 		borderWidth: 2,
 		borderRadius: 8,
 		alignSelf: 'stretch',
@@ -37,7 +41,7 @@ export default StyleSheet.create({
 	text_button_line_large: {
 		fontFamily: 'sans-serif',
 		fontSize: 24,
-		color: '#2BA84A',
+		color: COLOR_GREEN,
 		alignSelf: 'center',
 		alignItems: 'stretch',
 		textAlign: 'center',
@@ -45,7 +49,7 @@ export default StyleSheet.create({
 
 	button_fill_small: {
 		height: 36,
-		backgroundColor: '#2BA84A',
+		backgroundColor: COLOR_GREEN,
 		borderRadius: 8,
 		alignSelf: 'stretch',
 		alignItems: 'stretch',
@@ -56,7 +60,7 @@ export default StyleSheet.create({
 
 	text_button_fill_small: {
 		fontFamily: 'sans-serif',
-		fontSize: 18,
+		fontSize: 20,
 		color: '#FCFFFC',
 		alignSelf: 'center',
 		alignItems: 'stretch',
@@ -65,7 +69,7 @@ export default StyleSheet.create({
 
 	button_line_small: {
 		height: 36,
-		borderColor: '#2BA84A',
+		borderColor: COLOR_GREEN,
 		borderWidth: 2,
 		borderRadius: 8,
 		alignSelf: 'stretch',
@@ -77,8 +81,8 @@ export default StyleSheet.create({
 
 	text_button_line_small: {
 		fontFamily: 'sans-serif',
-		fontSize: 18,
-		color: '#2BA84A',
+		fontSize: 20,
+		color: COLOR_GREEN,
 		alignSelf: 'center',
 		alignItems: 'stretch',
 		textAlign: 'center',

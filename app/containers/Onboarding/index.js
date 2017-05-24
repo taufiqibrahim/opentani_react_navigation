@@ -7,14 +7,17 @@ import Final from '../../components/Onboarding/Final';
 export default class OnboardingScreen extends Component {
   static navigationOptions = {
     title: 'First Onboarding',
-    header: {
-      visible: false,
-    }
+    header: null,
   };
 
   onSkipBtn = () => {
     console.log('onSkipBtn pressed.')
     this.props.navigation.navigate('Main')
+  }
+
+  onSignupBtn = () => {
+    console.log(this.props)
+    this.props.navigation.navigate('Main');
   }
 
   render(){
@@ -47,6 +50,7 @@ export default class OnboardingScreen extends Component {
               onboard_subtitle={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'}
             />
         </View>
+        
         {/*<View 
           style={styles.slide}
         >
@@ -61,6 +65,7 @@ export default class OnboardingScreen extends Component {
             <Final
               onboard_title={'OpenTani'}
               onboard_subtitle={'Daftarkan diri Anda untuk manfaat penuh dari Opentani'}
+              btnOnPress={this.onSignupBtn.bind(this)}
             />
         </View>
       </SwiperComponent>

@@ -3,7 +3,9 @@ import {
   Dimensions,
 } from 'react-native';
 import {
-  COLOR_PRIMARY, COLOR_SECONDARY, COLOR_OPENTANI_GREEN, COLOR_OPENTANI_GREY
+  COLOR_GREEN,
+  COLOR_BACKGND,
+  COLOR_GREY,
 } from '../../styles/ColorPalette';
 
 const { width, height} = Dimensions.get('window');
@@ -13,7 +15,7 @@ export default StyleSheet.create({
   // Main container
   container: {
     flex: 1,
-    backgroundColor: COLOR_PRIMARY,
+    backgroundColor: COLOR_BACKGND,
     // position: 'relative',
   },
   fullScreen: {
@@ -39,7 +41,7 @@ export default StyleSheet.create({
   },
   // Pagination dot
   dot: {
-    backgroundColor: COLOR_OPENTANI_GREY,
+    backgroundColor: COLOR_GREY,
     width: 8,
     height: 8,
     borderRadius: 4,
@@ -50,7 +52,7 @@ export default StyleSheet.create({
   },
   // Active dot
   activeDot: {
-    backgroundColor: COLOR_OPENTANI_GREEN,
+    backgroundColor: COLOR_GREEN,
   },
   // Button wrapper
   buttonWrapper: {
@@ -77,12 +79,16 @@ export default StyleSheet.create({
     marginTop: 8, 
     marginBottom: 8,
   },
+  // Button Text
+  buttonTextStyle: {
+    color: COLOR_GREEN,
+  },
   // OK Button
   okButtonStyles: {
     flex: 1,
     flexDirection: 'column',
     height: 36,
-    backgroundColor: COLOR_OPENTANI_GREEN,
+    backgroundColor: COLOR_GREEN,
     borderRadius: 8,
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -90,7 +96,7 @@ export default StyleSheet.create({
     marginTop: 8, 
     marginBottom: 8,
   },
-  // Button
+  // Dummy
   dummySpacerStyles: {
     flex: 1,
     flexDirection: 'column',

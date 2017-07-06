@@ -8,8 +8,10 @@ import {
   Text,
   StyleSheet,
   Keyboard,
+  View,
 } from 'react-native';
 import Typeform from '../../../components/Form/Typeform';
+import { validateEmail } from '../../../utilities/inputValidator';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as signupActions from '../actions/';
@@ -26,12 +28,13 @@ import {
 import TextStyles from '../../../styles/TextStyles';
 import styles from './Styles';
 
-class SignupNameScreen extends Component {
+class SignupEmailScreen extends Component {
   static navigationOptions = {
     header: null,
   };
 
   state={
+    isModalVisible: false,
     buttonShow: false,
     hideValidationMessage: true,
     validationMessage: null,
@@ -41,36 +44,36 @@ class SignupNameScreen extends Component {
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
       otpTransport: this.props.data.otpTransport,
+      errorEmail: this.props.data.errorEmail,
     }
   }
 
-  validateName = (name) => {
-    if (name != null && name.length >= 3) {
-      return true
+  _showModal = () => this.setState({isModalVisible: true})
+  _hideModal = () => this.setState({isModalVisible: false})
+
+  onSubmitEditingHandler = async (text) => {
+    let res = await validateEmail(this.state.data.email);
+    if (res.isExists !== undefined) {
+      let t = (res.validationErrorMessage == null) ? true : false;
+      this._hideModal();
+      this.setState({validationMessage: res.validationErrorMessage});
+      this.setState({hideValidationMessage: t, buttonShow: t})
     } else {
-      return false
+      this._showModal();
     }
   }
 
-  onSubmitEditingHandler = (text) => {
-    if (!this.state.data.name || this.state.data.name === '') {
-      this.setState({validationMessage: uiText.validationErrorMessage.nameIsEmpty})
-    } else {
-      this.setState({validationMessage: uiText.validationErrorMessage.nameInvalid})
-    }
-    let t = this.validateName(this.state.data.name);
-    this.setState({hideValidationMessage: t, buttonShow: t})
-  }
+  onChangeTextHandler = (text) => {
+    if (!this.state.hideValidationMessage) { this.setState({hideValidationMessage: true}) }
 
-  onChangeTextHandler(text) {
     let newData = this.state.data;
-    newData.name = text;
+    newData.email = text;
+    
     this.setState({data: newData});
     this.props.actions.signupFormFill(newData);
   }
 
   onTouchableWithoutFeedbackPress = (text) => {
-    console.log('onTouchableWithoutFeedbackPress');
     Keyboard.dismiss();
     this.onSubmitEditingHandler(text);
   }
@@ -79,36 +82,52 @@ class SignupNameScreen extends Component {
     const navigateActions = NavigationActions.navigate({
       routeName: 'Signup',
       params: {},
-      action: NavigationActions.navigate({ routeName: 'SignupChooseComm' })
+      action: NavigationActions.navigate({ routeName: 'SignupOTP' })
     });
     this.props.navigation.dispatch(navigateActions);
   }
 
-	render(){
-		return(
+  render(){
+    return(
       <Typeform
         inputAutoFocus
-        subtitle='Siapa nama Anda?'
+        subtitle={
+          <Text>
+            {'Baik, '}
+            <Text style={{fontWeight: 'bold'}}>
+              {this.props.data.name}
+            </Text>
+            <Text style={{fontSize: 24}}>
+              {'\n'}Silakan masukkan email Anda
+            </Text>
+          </Text>
+        }
         subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
-        inputPlaceholder={uiText.placeholder.personName}
+        inputPlaceholder={uiText.placeholder.email}
         inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
-        inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
+        inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 30, fontWeight: 'bold',}]}
         inputKeyboardType='email-address'
-        inputAutoCapitalize='words'
         inputMaxLength={254}
         onChangeTextHandler={this.onChangeTextHandler.bind(this)}
         onSubmitEditingHandler={this.onSubmitEditingHandler.bind(this)}
         onTouchableWithoutFeedbackPress={this.onTouchableWithoutFeedbackPress.bind(this)}
         hideValidationMessage={this.state.hideValidationMessage}
         validationMessage={this.state.validationMessage}
+        
         buttonShow={this.state.buttonShow}
         buttonLabel='Lanjut'
         buttonStyles={styles.buttonStyles}
         buttonTextStyle={styles.buttonTextStyle}
         buttonOnPress={this.onButtonPressed.bind(this)}
+        
+        modalVisible={this.state.isModalVisible}
+        modalMessage={'Gagal menyambungkan ke server'}
+        modalBackButtonPressed={this._hideModal.bind(this)}
+        modalButtonNegativeOnPress={this._hideModal.bind(this)}
+        modalButtonPositiveOnPress={this.onSubmitEditingHandler.bind(this)}
       />
     )
-	}
+  }
 }
 
 function mapStateToProps(state) {
@@ -117,7 +136,7 @@ function mapStateToProps(state) {
     email: state.signup.email,
     phone: state.signup.phone,
     phoneOnScreen: state.signup.phoneOnScreen,
-    otpSentVia: state.signup.otpSentVia,
+    otpTransport: state.signup.otpTransport,
   }
 
   return { data }
@@ -129,4 +148,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupNameScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignupEmailScreen);

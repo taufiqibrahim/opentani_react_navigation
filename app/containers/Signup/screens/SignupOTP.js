@@ -26,7 +26,7 @@ import {
 import TextStyles from '../../../styles/TextStyles';
 import styles from './Styles';
 
-class SignupNameScreen extends Component {
+class SignupOTPScreen extends Component {
   static navigationOptions = {
     header: null,
   };
@@ -35,17 +35,19 @@ class SignupNameScreen extends Component {
     buttonShow: false,
     hideValidationMessage: true,
     validationMessage: null,
+    otpOnScreen: null,
     data: {
       name: this.props.data.name,
       email: this.props.data.email,
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
+      otp: null,
       otpTransport: this.props.data.otpTransport,
     }
   }
 
-  validateName = (name) => {
-    if (name != null && name.length >= 3) {
+  validate = (otp) => {
+    if (otp != null && otp.length >= 4) {
       return true
     } else {
       return false
@@ -53,62 +55,92 @@ class SignupNameScreen extends Component {
   }
 
   onSubmitEditingHandler = (text) => {
-    if (!this.state.data.name || this.state.data.name === '') {
-      this.setState({validationMessage: uiText.validationErrorMessage.nameIsEmpty})
+    let data = this.state.data;
+    if (!data.otp || data.otp === '') {
+      this.setState({validationMessage: uiText.validationErrorMessage.otpIsEmpty})
     } else {
-      this.setState({validationMessage: uiText.validationErrorMessage.nameInvalid})
+      this.setState({validationMessage: uiText.validationErrorMessage.otpInvalid})
     }
-    let t = this.validateName(this.state.data.name);
+    let t = this.validate(this.state.data.otp);
     this.setState({hideValidationMessage: t, buttonShow: t})
   }
-
+  
   onChangeTextHandler(text) {
+    if (!this.state.hideValidationMessage) { this.setState({hideValidationMessage: true}) }
+
     let newData = this.state.data;
-    newData.name = text;
-    this.setState({data: newData});
-    this.props.actions.signupFormFill(newData);
+    newData.otp = text.replace(/\D/g,'');
+    this.setState({otpOnScreen: this.otpFormatter(newData.otp)});
   }
 
   onTouchableWithoutFeedbackPress = (text) => {
-    console.log('onTouchableWithoutFeedbackPress');
     Keyboard.dismiss();
     this.onSubmitEditingHandler(text);
   }
 
-  onButtonPressed () {
-    const navigateActions = NavigationActions.navigate({
-      routeName: 'Signup',
-      params: {},
-      action: NavigationActions.navigate({ routeName: 'SignupChooseComm' })
-    });
-    this.props.navigation.dispatch(navigateActions);
+  otpFormatter = (otp) => {
+    otp = otp.replace(/(.)(?=.)/g, "$1  ")
+    /**
+     *  (.) Matches a single character. Captures in group 1 ($1)
+     *  (?=.) Positive look ahead. Checks if the captured character is followed by another character.
+     *  "$1 " Replacement string. $1 Contains the character captured in group 1, followed by a space
+     *   g Global modifier. Applies the replace globally for all the matches within the string.
+     */
+    
+    return otp;
   }
 
-	render(){
-		return(
+  otpFormatter2 = (otp) => {
+    let n = otp.length;
+    let res = otp.split("");
+  }
+
+  onButtonPressed() {
+    console.log('onButtonPressed')
+  }
+
+  render(){
+    let trans = this.props.data.otpTransport;
+    let desti = null;
+    if (trans == 'Email') {
+      desti = this.props.data.email
+    } 
+    else if (trans == 'SMS') {
+      desti = this.props.data.phoneOnScreen
+    }
+
+    return(
       <Typeform
-        inputAutoFocus
-        subtitle='Siapa nama Anda?'
+        subtitle={
+          <Text>
+            <Text style={{fontWeight: 'bold'}}>{'Masukkan OTP'}</Text>
+            <Text style={{fontSize: 20}}>
+              {'\n'}{'\n'}{'One Time Password (OTP) telah dikirim melalui '}{trans}{' ke '}{desti}. Silakan masukkan di sini untuk memverifikasi.
+            </Text>
+          </Text>
+        }
+        inputAutoFocus={false}
+        inputSecureTextEntry={true}
         subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
-        inputPlaceholder={uiText.placeholder.personName}
+        inputPlaceholder={uiText.placeholder.otp}
         inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
-        inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
-        inputKeyboardType='email-address'
-        inputAutoCapitalize='words'
-        inputMaxLength={254}
+        inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'center', fontSize: 36, fontWeight: 'bold'}]}
+        inputKeyboardType='phone-pad'
+        inputMaxLength={10}
+        maskValue={this.state.otpOnScreen}
         onChangeTextHandler={this.onChangeTextHandler.bind(this)}
         onSubmitEditingHandler={this.onSubmitEditingHandler.bind(this)}
         onTouchableWithoutFeedbackPress={this.onTouchableWithoutFeedbackPress.bind(this)}
         hideValidationMessage={this.state.hideValidationMessage}
         validationMessage={this.state.validationMessage}
         buttonShow={this.state.buttonShow}
-        buttonLabel='Lanjut'
+        buttonLabel='Verifikasi'
         buttonStyles={styles.buttonStyles}
         buttonTextStyle={styles.buttonTextStyle}
         buttonOnPress={this.onButtonPressed.bind(this)}
       />
     )
-	}
+  }
 }
 
 function mapStateToProps(state) {
@@ -117,7 +149,7 @@ function mapStateToProps(state) {
     email: state.signup.email,
     phone: state.signup.phone,
     phoneOnScreen: state.signup.phoneOnScreen,
-    otpSentVia: state.signup.otpSentVia,
+    otpTransport: state.signup.otpTransport,
   }
 
   return { data }
@@ -129,4 +161,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupNameScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignupOTPScreen);

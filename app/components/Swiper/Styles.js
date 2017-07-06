@@ -7,42 +7,30 @@ import {
   COLOR_LIGHT,
   COLOR_GREY,
 } from '../../styles/ColorPalette';
+import TextStyles from '../../styles/TextStyles';
 
 const { width, height} = Dimensions.get('window');
 
-const lowerHalf = 0.125*height;
-const widthByThree = 0.3*width;
-
 export default StyleSheet.create({
-  // Set width & height to the screen size
-  // Main container
   container: {
     flex: 1,
     backgroundColor: COLOR_LIGHT,
-    // position: 'relative',
   },
   fullScreen: {
     flex: 1,
     width: width,
     height: height,
   },
-  // Slide
   slide: {
     backgroundColor: 'transparent',
   },
-  // Pagination indicator
-  pagination: {
+  onboardingControlPagination: {
     flex: 1,
     flexDirection: 'row',
     backgroundColor: 'transparent',
-    position: 'absolute',
-    bottom: 32,
-    left: 0,
-    right: 0,
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
-  // Pagination dot
   dot: {
     backgroundColor: COLOR_GREY,
     width: 8,
@@ -53,27 +41,37 @@ export default StyleSheet.create({
     marginTop: 3,
     marginBottom: 3,
   },
-  // Active dot
   activeDot: {
     backgroundColor: COLOR_GREEN,
   },
-  // Button wrapper
-  buttonWrapper: {
+  onboardingControlOuter: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'stretch',
     position: 'absolute',
-    bottom: lowerHalf,
+    bottom: 0,
     left: 0,
     right: 0,
-    paddingHorizontal: widthByThree,
+    height: height*0.125,
   },
-  // Button
+  onboardingControlInner: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    //borderWidth: 2,
+    //borderColor: 'red',
+  },
+  onboardingButtonWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   buttonStyles: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     height: 36,
     backgroundColor: COLOR_LIGHT,
     borderRadius: 18,
@@ -83,8 +81,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // Button Text
   buttonTextStyle: {
     color: COLOR_GREEN,
-  },
+  }
 });

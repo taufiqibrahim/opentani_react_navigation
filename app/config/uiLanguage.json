@@ -1,0 +1,21 @@
+{
+  "placeholder": {
+    "personName": "Omar Bakrie",
+    "email": "omar.bakrie@op.id",
+    "phone": "0811-858-6273",
+    "otp": "*  *  *  *"
+  },
+  "validationErrorMessage": {
+    "networkError": "",
+    "nameInvalid": "Nama tidak boleh kurang dari 3 huruf",
+    "nameIsEmpty": "Nama tidak boleh kosong",
+    "emailInvalid": "Format email salah",
+    "emailIsEmpty": "Email tidak boleh kosong",
+    "emailAlreadyTaken": "Email sudah ada yang menggunakan",
+    "phoneInvalid": "Jumlah nomor kurang dari 10",
+    "phoneIsEmpty": "Nomor telepon tidak boleh kosong",
+    "phoneAlreadyTaken": "Nomor telepon sudah ada yang menggunakan",
+    "otpInvalid": "Sandi OTP harus 4 angka",
+    "otpIsEmpty": "Anda belum memasukkan sandi OTP",
+  }
+}

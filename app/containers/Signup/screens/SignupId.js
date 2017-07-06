@@ -18,6 +18,7 @@ import {
   COLOR_PLACEHOLDER_ON_GREEN,
 } from '../../../styles/ColorPalette';
 import TextStyles from '../../../styles/TextStyles';
+import styles from './Styles';
 
 class SignupIdScreen extends Component {
   static navigationOptions = {
@@ -93,24 +94,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupIdScreen)
-
-const styles = StyleSheet.create({
-  // Button
-  buttonStyles: {
-    height: 56,
-    backgroundColor: COLOR_GREEN,
-    borderRadius: 2,
-    borderWidth: 2,
-    borderColor: COLOR_LIGHT,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  // Button Text Style
-  buttonTextStyle: {
-    fontFamily: 'sans-serif',
-    fontSize: 32,
-    color: COLOR_LIGHT,
-  }
-})
+export default connect(mapStateToProps, mapDispatchToProps)(SignupIdScreen);

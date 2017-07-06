@@ -1,0 +1,313 @@
+import React, {Component} from 'react';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ScrollView,
+} from 'react-native';
+import Button from '../Button/Button'
+import styles from './Styles';
+
+const { width, height} = Dimensions.get('window');
+
+export default class SwiperComponent extends Component {
+
+  componentDidMount(){
+    //console.log(this.props)
+  }
+  // Props for ScrollView component
+  static defaultProps = {
+    horizontal: true,
+    pagingEnabled: true,
+    showsHorizontalScrollIndicator: false,
+    showsVerticalScrollIndicator: false,
+    bounces: false,
+    scrollsToTop: false,
+    removeClippedSubviews: true,
+    automaticallyAdjustContentInsets: false,
+    index: 0,
+  }
+
+  state = this.initState(this.props);
+
+  initState(props){
+    // Get total number of slides
+    const total = props.children ? props.children.length || 1 : 0,
+      // Current index
+      index = total > 1 ? Math.min(props.index, total - 1) : 0,
+      // Current offset
+      offset = width * index,
+      hideSkipButton = false,
+      cutOffIndex = total - 2,
+      prevIndex = 0,
+      lastScreenIndex = (total-1);
+
+    const state = {
+      total,
+      index,
+      offset,
+      width,
+      height,
+      hideSkipButton,
+      cutOffIndex,
+      prevIndex,
+      lastScreenIndex,
+    };
+
+    // Component internals as a class property and not state to avoid rerenders
+    this.internals = {
+      isScrolling: false,
+      offset,
+      total,
+    };
+
+    return state;
+  }
+
+  /**
+   * Scroll begin handler
+   * @param {object} e native event
+   */
+  onScrollBegin = e => {
+    const state = this.state;
+    this.internals.isScrolling = true;
+    if (state.index === state.cutOffIndex) {
+      this.toogleSkipButtonVisibility(this.state.index, 'hide')
+    };
+  }
+
+  /**
+   * Scroll end handler
+   * @param {object} e native event
+   */
+  onScrollEnd = e => {
+    const state = this.state;
+    this.internals.isScrolling = false;
+    
+
+    // Update index
+    this.updateIndex(
+      e.nativeEvent.contentOffset ? e.nativeEvent.contentOffset.x
+      // When scrolled with .scrollTo() on Android there is no contentOffset
+      : e.nativeEvent.position * this.state.width
+    )
+  }
+
+  /**
+   * Drag end handler
+   * @param {object} e native event
+   */
+  onScrollEndDrag = e => {
+    const { contentOffset: { x: newOffset } } = e.nativeEvent,
+      { children } = this.props,
+      { index } = this.state,
+      { offset } = this.internals;
+
+    // Update internal isScrolling state
+    // if swiped right on the last slide
+    // or left on the first slide
+    if ( offset === newOffset && 
+         (index === 0 || index === children.length - 1)
+       ) {
+      this.internals.isScrolling = false;
+    }
+  }
+
+  onSkipBtn = () => {
+    const state = this.state,
+      targetX = ( state.total - 1 ) * state.width;  
+    // Scroll to the last slide
+    this.setState({hideSkipButton: true});
+    this.ScrollView && this.ScrollView.scrollTo({ x: targetX, y: 0, animated: true })
+    this.updateIndex(targetX);
+    // console.log(this.state.index)
+    // this.updateIndex(720)
+    // this.setState({index: 2});
+  }
+
+  toogleSkipButtonVisibility = (idx, action) => {
+    // console.log('toogleSkipButtonVisibility: '+action);
+    if (idx == this.state.cutOffIndex && action === 'hide') {
+      this.setState({hideSkipButton: true})
+    } else {
+      this.setState({hideSkipButton: false})
+    }
+  }
+
+  /**
+   * Update index after scroll
+   * @param {object} offset content offset
+   */
+  updateIndex = (offset) => {
+    const state = this.state,
+      diff = offset - this.internals.offset,
+      step = state.width;
+
+    let index = state.index;
+    let prevIndex = state.index;
+
+    // Do nothing if offset did not change
+    if (!diff) {
+      return;
+    }
+    // Make sure index always integer
+    index = parseInt(index + Math.round(diff / step), 10);
+    // Update internal offset
+    this.internals.offset = offset;
+    // Bring skip button visible again
+    if (index <= prevIndex) { 
+      // console.log('updateIndex')
+      this.toogleSkipButtonVisibility(index, 'visible') }
+    if (state.index === state.cutOffIndex && index !== state.lastScreenIndex) {
+      // console.log('onScrollEnd')
+      this.toogleSkipButtonVisibility(state.index, 'visible')
+    };
+    // Update index in the state
+    this.setState({index});
+    this.setState({prevIndex});
+  }
+
+  /**
+   * Swipe one slide forward
+   * @param 
+   */
+  swipe = () => {
+    // Ignore if already scrolling OR if there are less than 2 slides
+    if (this.internals.isScrolling || this.state.total < 2) {
+      return;
+    }
+
+    const state = this.state,
+      diff = this.state.index + 1,
+      x = diff * state.width,
+      y = 0;
+
+    // Call scrollTo() on ScrollView component to perform the SWIPE
+    this.ScrollView && this.ScrollView.scrollTo({ x, y, animated: true });
+    // Update internal scroll state
+    this.internals.isScrolling = true;
+    // Trigger onScrollEnd manually on Android
+    if (Platform.OS === 'android'){
+      setImmediate(() => {
+        this.onScrollEnd({
+          nativeEvent: {
+            position: diff
+          }
+        })
+      })
+    }
+  }
+
+  /**
+   * Render ScrollView component
+   * @param {array} slides to be swiped
+   */
+  renderScrollView = pages => {
+    return(
+      <ScrollView
+        ref={component => { this.ScrollView = component; }}
+        {...this.props}
+        //contentContainerStyle={[styles.wrapper, this.props.style]}
+        onScrollBeginDrag={this.onScrollBegin}
+        onMomentumScrollEnd={this.onScrollEnd}
+        onScrollEndDrag={this.onScrollEndDrag}
+      >
+        {pages.map((page, i) => 
+          // Render each slide inside a View
+          <View
+            //style={[styles.fullScreen, styles.slide]}
+            style={styles.fullScreen}
+            key={i}
+          >
+            {page}
+          </View>
+        )}
+      </ScrollView>
+    );
+  }
+
+  /**
+   * Render Pagination Indicator
+   * @param 
+   */
+  renderPagination = () => {
+    if (this.state.total <= 1){
+      return null;
+    }
+
+    const ActiveDot = <View style={[styles.dot, styles.activeDot]} />,
+      Dot = <View style={styles.dot} />;
+
+    let dots = [];
+
+    for (let key = 0; key < this.state.total; key++){
+      dots.push(key === this.state.index
+        // Active dot
+        ? React.cloneElement(ActiveDot, { key })
+        // Other dots
+        : React.cloneElement(Dot, { key })
+      );
+    }
+
+    return(
+      <View
+        pointerEvents="none"
+        style={styles.pagination}
+      >
+        {dots}
+      </View>
+    )
+  }
+
+  /**
+   * Render CONTINUE or DONE button
+   * @param 
+   */
+  renderButton = () => {
+    const lastScreen = this.state.index === this.state.total - 1;
+    const hideSkipButton = lastScreen ? lastScreen : this.state.hideSkipButton;
+    if (lastScreen) { this }
+    return(
+      <View
+        //pointerEvents="box-none"
+        style={styles.buttonWrapper}
+      >
+        {
+          hideSkipButton
+          ? (<View />) 
+          : (
+              <Button 
+                buttonStyle={styles.buttonStyles} 
+                txtStyle={styles.buttonTextStyle}
+                buttonLabel='LEWATI' 
+                buttonOnPress={this.onSkipBtn} 
+              />
+            )
+        }
+      </View>
+    )
+  }
+
+  /**
+   * Render the component
+   * @param 
+   */
+  render = ({ children } = this.props) => {
+    // console.log(this.state)
+    return(
+      <View
+        style={styles.container}
+        //style={[styles.container, styles.fullScreen]}
+      >
+        {/* Render screens*/}
+        { this.renderScrollView(children) }
+        {/* Render button*/}
+        { this.renderButton() }
+        {/* Render pagination*/}
+        { this.renderPagination() }
+      </View>
+    )
+  }
+}

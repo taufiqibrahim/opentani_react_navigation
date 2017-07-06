@@ -1,30 +1,35 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
   View,
   Text,
   StyleSheet,
 } from 'react-native';
-import Button from '../../components/Button/Button';
+import StandardButton from '../../components/Button/StandardButton';
 import {
   COLOR_GREEN,
   COLOR_LIGHT,
 } from '../../styles/ColorPalette';
 import text_styles from '../../styles/TextStyles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { NavigationActions } from 'react-navigation';
 
-export default class End extends Component {
-  constructor(props) {
-    super(props);
-    this.state =  { 
-      
-     };
+class End extends Component {
+  static navigationOptions = {
+    header: null,
   }
 
-  onSignupBtn(){
-    console.log(this.props)
-    //this.props.navigation.navigate('Main');
+  handle() {
+    const navigateActions = NavigationActions.navigate({
+      routeName: 'Wall',
+      params: {},
+      action: NavigationActions.navigate({ routeName: 'Wall' })
+    });
+    this.props.navigation.dispatch(navigateActions);    
   }
 
   render(){
+    console.log(this.props);
     return(
       <View style={styles.wrapper}>
         <View style={styles.boxUpper}>
@@ -33,52 +38,32 @@ export default class End extends Component {
           </Text>
         </View>
         <View style={styles.boxLower}>
-          <Text style={text_styles.BODY}>
+          <Text style={text_styles.GUIDE}>
             {this.props.onboard_subtitle}
           </Text>
         </View>
         <View style={styles.boxLower}>
-            <View style={{flex:1, flexDirection: 'row'}}>
-              <View style={styles.buttonWrapper}>
-                <Button 
-                  buttonStyle={[styles.buttonStyles, {borderColor: COLOR_GREEN, backgroundColor: COLOR_GREEN}]} 
-                  txtStyle={[styles.buttonTextStyle, {color: COLOR_LIGHT}]}
-                  buttonLabel='Pengguna baru' 
-                  //buttonOnPress={this.onSkipBtn} 
-                />
-              </View>
-              <View style={styles.buttonWrapper}>
-                <Button 
-                  buttonStyle={[styles.buttonStyles, {borderColor: COLOR_GREEN}]} 
-                  txtStyle={[styles.buttonTextStyle, {color: COLOR_GREEN}]}
-                  buttonLabel='Masuk' 
-                  //buttonOnPress={this.onSkipBtn} 
-                />
-              </View>
+          <View style={{flex:1, flexDirection: 'row'}}>
+            <View style={styles.buttonWrapper}>
+              <StandardButton 
+                buttonStyle={[styles.buttonStyles, {borderColor: COLOR_GREEN}]} 
+                buttonTextStyle={[styles.buttonTextStyle, {color: COLOR_GREEN}]}
+                buttonLabel={this.props.buttonLabel}
+                buttonOnPress={this.handle.bind(this)}
+              />
             </View>
+          </View>
         </View>
-        <View style={styles.boxLower}>
-          <Text style={text_styles.BODY}>
-            Atau
-          </Text>
-        </View>
-        <View style={styles.boxLower}>
-            <View style={{flex:1, flexDirection: 'row'}}>
-              <View style={styles.buttonWrapper}>
-                <Button 
-                  buttonStyle={[styles.buttonStyles, {borderColor: COLOR_GREEN}]} 
-                  txtStyle={[styles.buttonTextStyle, {color: COLOR_GREEN}]}
-                  buttonLabel='Coba Opentani Tanpa Mendaftar' 
-                  //buttonOnPress={this.onSkipBtn} 
-                />
-              </View>
-            </View>
-        </View>
+        <View style={styles.boxLower} />
+        <View style={styles.boxLower} />
         <View style={styles.footer} />
       </View>
     )
   }
 }
+
+//export default connect()(End)
+export default End
 
 const styles = StyleSheet.create({
   // Wrapper layout
@@ -99,7 +84,7 @@ const styles = StyleSheet.create({
   },
   // Upper Box
   boxUpper: {
-    flex: 2,
+    flex: 1.5,
     backgroundColor: COLOR_LIGHT,
     alignItems: 'center',
     alignSelf: 'stretch',

@@ -22,7 +22,6 @@ export default StyleSheet.create({
 		fontFamily: 'sans-serif-light',
 		fontSize: 28,
 		fontWeight: 'bold',
-		marginBottom: 8,
 		alignSelf: 'center',
 		textAlign: 'center',		
 	},
@@ -30,15 +29,14 @@ export default StyleSheet.create({
 		fontFamily: 'sans-serif',
 		fontSize: 20,
 		alignSelf: 'center',
-		textAlign: 'center',
-		marginBottom: 8,		
+		textAlign: 'center',	
 	},
 	BODY: {
 		fontFamily: 'sans-serif-light',
 		fontSize: 16,
 		alignSelf: 'center',
 		textAlign: 'center',
-		marginBottom: 8,		
+		margin: 8,		
 	},
 	SUBTITLE: {
 		fontFamily: 'sans-serif-light',
@@ -60,8 +58,6 @@ export default StyleSheet.create({
 		fontFamily: 'sans-serif-light',
 		fontSize: 32,
 		fontWeight: 'normal',
-		//alignSelf: 'stretch',
-		//alignItems: 'stretch',
 		textAlign: 'center',
 	},
 	ERROR: {
@@ -70,6 +66,13 @@ export default StyleSheet.create({
 		color: 'red',
 		alignSelf: 'stretch',
 		alignItems: 'stretch',
+	},
+	GUIDE: {
+		fontFamily: 'sans-serif-light',
+		fontSize: 24,
+		marginBottom: 8,
+		alignSelf: 'center',
+		textAlign: 'center',	
 	},
 	
 })

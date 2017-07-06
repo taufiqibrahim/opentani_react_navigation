@@ -7,7 +7,7 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import Button from '../../components/Button/Button';
+import StandardButton from '../../components/Button/StandardButton';
 import {
   COLOR_LIGHT, COLOR_GREEN
 } from '../../styles/ColorPalette'
@@ -73,10 +73,10 @@ export default class Test extends Component {
         <Animated.View
           style={{ opacity: this.state.fadeAnim }}
         >
-          <Button 
+          <StandardButton 
             btnStyle={styles.buttonStyles}
             //{{ opacity: this.state.fadeAnim }} 
-            txtStyle={styles.buttonTextStyle} 
+            buttonTextStyle={styles.buttonTextStyle} 
             btnLabel={'Pencet'}
             //btnOnPress={this.props.buttonOnPress}
           /> 

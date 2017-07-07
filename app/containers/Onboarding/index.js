@@ -1,43 +1,39 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import SwiperComponent from '../../components/Swiper/Swiper';
-import Onboarding1 from '../../components/Onboarding/Onboarding1';
-import Final from '../../components/Onboarding/Final';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { NavigationActions } from 'react-navigation';
+import SwiperComponent from '../../components/Swiper';
+import Stories_1 from './Stories_1';
+import End from './End';
 
-export default class OnboardingScreen extends Component {
+class OnboardingScreen extends Component {
   static navigationOptions = {
-    title: 'First Onboarding',
     header: null,
   };
 
-  onSkipBtn = () => {
-    console.log('onSkipBtn pressed.')
-    this.props.navigation.navigate('Main')
-  }
-
-  onSignupBtn = () => {
+  onButtonPressed () {
     console.log(this.props)
-    this.props.navigation.navigate('Main');
   }
 
   render(){
+    console.log(this.props)
     return(
       <SwiperComponent
-        onSkipBtn={this.onSkipBtn.bind(this)}
-        // btnOnPress={'this.props.onSkipBtn.bind(this)'}
+        {...this.props}
       >
         <View 
           style={styles.slide}
         >
-            <Onboarding1
-              onboard_title={'Peta Lahan'}
+            <Stories_1
+              onboard_title={'Pemetaan Lahan'}
               onboard_subtitle={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'}
             />
         </View>
         <View 
           style={styles.slide}
         >
-            <Onboarding1
+            <Stories_1
               onboard_title={'Database Varietas'}
               onboard_subtitle={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'}
             />
@@ -45,33 +41,28 @@ export default class OnboardingScreen extends Component {
         <View 
           style={styles.slide}
         >
-            <Onboarding1
+            <Stories_1
               onboard_title={'Pantau Harga Terkini'}
               onboard_subtitle={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'}
             />
         </View>
-        
-        {/*<View 
-          style={styles.slide}
-        >
-            <Onboarding1
-              onboard_title={'Bawa saya menuju aplikasi'}
-              onboard_subtitle={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'}
-            />
-        </View>*/}
         <View 
           style={styles.slide}
         >
-            <Final
-              onboard_title={'OpenTani'}
-              onboard_subtitle={'Daftarkan diri Anda untuk manfaat penuh dari Opentani'}
-              btnOnPress={this.onSignupBtn.bind(this)}
-            />
+          <End
+            {...this.props}
+            onboard_title={'opentani'}
+            onboard_subtitle={'Bikin pertanian keren lagi'}
+            buttonLabel={'Sentuh untuk memulai'}
+            //onButtonPressed={this.onButtonPressed()}
+          />
         </View>
       </SwiperComponent>
     )
   }
 }
+
+export default connect()(OnboardingScreen)
 
 const styles = StyleSheet.create({
   slide: {

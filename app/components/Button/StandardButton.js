@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 
-export default class Button extends Component {
+export default class StandardButton extends Component {
   render() {
     return (
       <View>
@@ -10,7 +10,7 @@ export default class Button extends Component {
           style={this.props.buttonStyle}
         >
           <Text 
-          style={this.props.txtStyle}
+          style={this.props.buttonTextStyle}
           >
             {this.props.buttonLabel}
           </Text>

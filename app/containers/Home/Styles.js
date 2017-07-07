@@ -3,35 +3,31 @@ import {
   Dimensions,
 } from 'react-native';
 import {
-  COLOR_PRIMARY, COLOR_SECONDARY, COLOR_OPENTANI_GREEN,
-  COLOR_OPENTANI_GREY, COLOR_OPENTANI_DARKGREY, COLOR_OPENTANI_DARKESTGREY,
-  COLOR_DEV, COLOR_OPENTANI_LIGHTGREY
+  COLOR_LIGHT,
 } from '../../styles/ColorPalette';
+import TextStyles from '../../styles/TextStyles';
+
 
 const { width, height} = Dimensions.get('window');
 
 export default StyleSheet.create({
-  // Set width & height to the screen size
-  // Main container
   container: {
     flex: 1,
-    backgroundColor: COLOR_OPENTANI_LIGHTGREY,
-    // position: 'relative',
+    //backgroundColor: COLOR_OPENTANI_LIGHTGREY,
   },
   fullScreen: {
     flex: 1,
     width: width,
     height: height,
   },
-  // Header Wrapper
   headerWrapper: {
     flex: 1,
-    backgroundColor: COLOR_PRIMARY,
+    //backgroundColor: COLOR_PRIMARY,
+    backgroundColor: 'transparent',
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // Descriptor Wrapper
   descriptorWrapper: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -39,7 +35,9 @@ export default StyleSheet.create({
   // Menu Wrapper
   menuWrapper: {
     flex: 8,
-    backgroundColor: COLOR_OPENTANI_LIGHTGREY,
+    //backgroundColor: COLOR_OPENTANI_LIGHTGREY,
+    backgroundColor: '#00C85333',
+    opacity: 10,
     paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 32,
@@ -59,15 +57,15 @@ export default StyleSheet.create({
   gridWrapper: {
     flex: 1,
     padding: 8,
-
   },
   // Grid Button
   gridStyles: {
     flex: 1,
     flexDirection: 'column',
-    elevation: 2,
-    backgroundColor: COLOR_PRIMARY,
-    borderRadius: 4,
+    //elevation: 2,
+    //backgroundColor: COLOR_PRIMARY,
+    backgroundColor: 'transparent',
+    borderRadius: 2,
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
@@ -77,7 +75,7 @@ export default StyleSheet.create({
     fontFamily: 'sans-serif',
     fontSize: 56,
     fontWeight: 'normal',
-    color: COLOR_OPENTANI_GREEN,
+    color: COLOR_LIGHT,
     alignSelf: 'center',
     textAlign: 'center',
     marginBottom: 8,
@@ -85,9 +83,9 @@ export default StyleSheet.create({
   // Icon Text Style
   iconTxtStyle: {
     fontFamily: 'sans-serif-light',
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: COLOR_OPENTANI_DARKESTGREY,
+    fontSize: 16,
+    fontWeight: 'normal',
+    color: COLOR_LIGHT,
     alignSelf: 'center',
     textAlign: 'center',
   },  

@@ -1,8 +1,14 @@
 'use strict'
 
+import uiText from '../../../config/uiLanguage.json';
+
 // Libraries imports
-import React, {Component, PropTypes} from 'react';
-import { StyleSheet } from 'react-native';
+import React, {Component} from 'react';
+import { 
+  Text,
+  StyleSheet,
+  Keyboard,
+} from 'react-native';
 import Typeform from '../../../components/Form/Typeform';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,23 +21,65 @@ import {
   COLOR_GREEN,
   COLOR_TEXT_LIGHT,
   COLOR_TEXT_DARKER,
+  COLOR_PLACEHOLDER_ON_GREEN,
 } from '../../../styles/ColorPalette';
 import TextStyles from '../../../styles/TextStyles';
+import styles from './Styles';
 
 class SignupNameScreen extends Component {
   static navigationOptions = {
     header: null,
   };
 
+  state={
+    buttonShow: false,
+    hideValidationMessage: true,
+    validationMessage: null,
+    data: {
+      name: this.props.data.name,
+      email: this.props.data.email,
+      phone: this.props.data.phone,
+      phoneOnScreen: this.props.data.phoneOnScreen,
+      otpTransport: this.props.data.otpTransport,
+    }
+  }
+
+  validateName = (name) => {
+    if (name != null && name.length >= 3) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  onSubmitEditingHandler = (text) => {
+    if (!this.state.data.name || this.state.data.name === '') {
+      this.setState({validationMessage: uiText.validationErrorMessage.nameIsEmpty})
+    } else {
+      this.setState({validationMessage: uiText.validationErrorMessage.nameInvalid})
+    }
+    let t = this.validateName(this.state.data.name);
+    this.setState({hideValidationMessage: t, buttonShow: t})
+  }
+
   onChangeTextHandler(text) {
-    this.props.actions.signupFormFill(text);
+    let newData = this.state.data;
+    newData.name = text;
+    this.setState({data: newData});
+    this.props.actions.signupFormFill(newData);
+  }
+
+  onTouchableWithoutFeedbackPress = (text) => {
+    console.log('onTouchableWithoutFeedbackPress');
+    Keyboard.dismiss();
+    this.onSubmitEditingHandler(text);
   }
 
   onButtonPressed () {
     const navigateActions = NavigationActions.navigate({
       routeName: 'Signup',
       params: {},
-      action: NavigationActions.navigate({ routeName: 'SignupPhone' })
+      action: NavigationActions.navigate({ routeName: 'SignupChooseComm' })
     });
     this.props.navigation.dispatch(navigateActions);
   }
@@ -39,27 +87,40 @@ class SignupNameScreen extends Component {
 	render(){
 		return(
       <Typeform
-        subtitle='Siapa nama Anda?'
-        subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT}]}
-        inputPlaceholder='Nama Anda'
-        inputPlaceholderColor= {COLOR_TEXT_LIGHT}
-        inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT}]}
+        inputAutoFocus
+        subtitle={uiText.signup.question.personName}
+        subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
+        inputPlaceholder={uiText.signup.placeholder.personName}
+        inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
+        inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
+        inputKeyboardType='email-address'
+        inputAutoCapitalize='words'
+        inputMaxLength={254}
         onChangeTextHandler={this.onChangeTextHandler.bind(this)}
-        btnLabel='Lanjut'
+        onSubmitEditingHandler={this.onSubmitEditingHandler.bind(this)}
+        onTouchableWithoutFeedbackPress={this.onTouchableWithoutFeedbackPress.bind(this)}
+        hideValidationMessage={this.state.hideValidationMessage}
+        validationMessage={this.state.validationMessage}
+        buttonShow={this.state.buttonShow}
+        buttonLabel='Lanjut'
         buttonStyles={styles.buttonStyles}
-        buttonTextStyle={styles.buttonTextStyle}
+        buttonTextStyle={[TextStyles.H1, styles.buttonTextStyle]}
         buttonOnPress={this.onButtonPressed.bind(this)}
       />
     )
 	}
 }
 
-//export default SignupNameScreen
-
 function mapStateToProps(state) {
-  const name = state.signup.name
+  const data = {
+    name: state.signup.name,
+    email: state.signup.email,
+    phone: state.signup.phone,
+    phoneOnScreen: state.signup.phoneOnScreen,
+    otpSentVia: state.signup.otpSentVia,
+  }
 
-  return { name }
+  return { data }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -68,24 +129,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupNameScreen)
-
-const styles = StyleSheet.create({
-  // Button
-  buttonStyles: {
-    height: 56,
-    backgroundColor: COLOR_GREEN,
-    borderRadius: 2,
-    borderWidth: 2,
-    borderColor: COLOR_LIGHT,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  // Button Text Style
-  buttonTextStyle: {
-    fontFamily: 'sans-serif',
-    fontSize: 32,
-    color: COLOR_LIGHT,
-  }
-})
+export default connect(mapStateToProps, mapDispatchToProps)(SignupNameScreen);

@@ -1,0 +1,52 @@
+{
+  "onboarding": {
+    "skip": "LEWATI",
+    "next": "BERIKUTNYA",
+    "page_1": {
+      "title": "Pemetaan Lahan",
+      "descriptor": "Dengan memetakan lahan, Anda mengetahui luas pasti sekaligus berkontribusi dalam meningkatkan akurasi data pertanian Indonesia.",
+    },
+    "page_2": {
+      "title": "Buku Tani",
+      "descriptor": "Catatan aktivitas tani, pengeluaran, hasil panen dan keuntungan penjualan",
+    },
+    "page_3": {
+      "title": "Pelaporan dan Informasi Hama",
+      "descriptor": "Laporkan kejadian hama dan penyakit. Dapatkan informasi terbaru mengenai hama dan cara pencegahannya.",
+    },
+    "page_4": {
+      "title": "Pelaporan dan Informasi Hama",
+      "descriptor": "Laporkan kejadian hama dan penyakit. Dapatkan informasi terbaru mengenai hama dan cara pencegahannya.",
+    },
+  },
+  "signup": {
+    "question": {
+      "personName": "Siapa nama Anda?",
+      "otp": "Aktivasi Akun",
+      "otpTransportQuestion": "Anda ingin menerima kode aktivasi melalui?",
+      "activationInfo": "Kode aktivasi telah dikirim melalui ",
+      "to": "ke",
+      "from": "dari",
+      "activationCommand": "Silakan memasukkan kode aktivasi Anda."
+    },
+    "placeholder": {
+      "personName": "Omar Bakrie",
+      "email": "omar.bakrie@op.id",
+      "phone": "0811-858-6273",
+      "otp": "*  *  *  *",
+    },
+  },
+  "validationErrorMessage": {
+    "networkError": "",
+    "nameInvalid": "Nama tidak boleh kurang dari 3 huruf",
+    "nameIsEmpty": "Nama tidak boleh kosong",
+    "emailInvalid": "Format email salah",
+    "emailIsEmpty": "Email tidak boleh kosong",
+    "emailAlreadyTaken": "Email sudah ada yang menggunakan",
+    "phoneInvalid": "Jumlah nomor kurang dari 10",
+    "phoneIsEmpty": "Nomor telepon tidak boleh kosong",
+    "phoneAlreadyTaken": "Nomor telepon sudah ada yang menggunakan",
+    "otpInvalid": "Kode aktivasi harus 4 angka",
+    "otpIsEmpty": "Kode aktivasi belum dimasukkan",
+  },
+}

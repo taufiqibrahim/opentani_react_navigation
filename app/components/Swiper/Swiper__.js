@@ -15,7 +15,7 @@ const { width, height} = Dimensions.get('window');
 export default class SwiperComponent extends Component {
 
   componentDidMount(){
-    console.log(this.props)
+    //console.log(this.props)
   }
   // Props for ScrollView component
   static defaultProps = {
@@ -40,7 +40,9 @@ export default class SwiperComponent extends Component {
       // Current offset
       offset = width * index,
       hideSkipButton = false,
-      cutOffIndex = total - 2;
+      cutOffIndex = total - 2,
+      prevIndex = 0,
+      lastScreenIndex = (total-1);
 
     const state = {
       total,
@@ -50,6 +52,8 @@ export default class SwiperComponent extends Component {
       height,
       hideSkipButton,
       cutOffIndex,
+      prevIndex,
+      lastScreenIndex,
     };
 
     // Component internals as a class property and not state to avoid rerenders
@@ -67,9 +71,11 @@ export default class SwiperComponent extends Component {
    * @param {object} e native event
    */
   onScrollBegin = e => {
-    console.log(this.state.index)
+    const state = this.state;
     this.internals.isScrolling = true;
-    if (this.state.index === this.state.cutOffIndex) {this.toogleSkipButtonVisibility(this.state.index)};
+    if (state.index === state.cutOffIndex) {
+      this.toogleSkipButtonVisibility(this.state.index, 'hide')
+    };
   }
 
   /**
@@ -77,7 +83,10 @@ export default class SwiperComponent extends Component {
    * @param {object} e native event
    */
   onScrollEnd = e => {
+    const state = this.state;
     this.internals.isScrolling = false;
+    
+
     // Update index
     this.updateIndex(
       e.nativeEvent.contentOffset ? e.nativeEvent.contentOffset.x
@@ -103,7 +112,27 @@ export default class SwiperComponent extends Component {
          (index === 0 || index === children.length - 1)
        ) {
       this.internals.isScrolling = false;
-      //this.toogleSkipButtonVisibility();
+    }
+  }
+
+  onSkipBtn = () => {
+    const state = this.state,
+      targetX = ( state.total - 1 ) * state.width;  
+    // Scroll to the last slide
+    this.setState({hideSkipButton: true});
+    this.ScrollView && this.ScrollView.scrollTo({ x: targetX, y: 0, animated: true })
+    this.updateIndex(targetX);
+    // console.log(this.state.index)
+    // this.updateIndex(720)
+    // this.setState({index: 2});
+  }
+
+  toogleSkipButtonVisibility = (idx, action) => {
+    // console.log('toogleSkipButtonVisibility: '+action);
+    if (idx == this.state.cutOffIndex && action === 'hide') {
+      this.setState({hideSkipButton: true})
+    } else {
+      this.setState({hideSkipButton: false})
     }
   }
 
@@ -117,6 +146,7 @@ export default class SwiperComponent extends Component {
       step = state.width;
 
     let index = state.index;
+    let prevIndex = state.index;
 
     // Do nothing if offset did not change
     if (!diff) {
@@ -126,19 +156,17 @@ export default class SwiperComponent extends Component {
     index = parseInt(index + Math.round(diff / step), 10);
     // Update internal offset
     this.internals.offset = offset;
+    // Bring skip button visible again
+    if (index <= prevIndex) { 
+      // console.log('updateIndex')
+      this.toogleSkipButtonVisibility(index, 'visible') }
+    if (state.index === state.cutOffIndex && index !== state.lastScreenIndex) {
+      // console.log('onScrollEnd')
+      this.toogleSkipButtonVisibility(state.index, 'visible')
+    };
     // Update index in the state
     this.setState({index});
-    this.toogleSkipButtonVisibility(this.state.index);
-    console.log('updateIndex:' + this.state.index)
-  }
-
-  toogleSkipButtonVisibility = (idx) => {
-    console.log('toogleSkipButtonVisibility');
-    if (idx == this.state.cutOffIndex) {
-      this.setState({hideSkipButton: true})
-    } else {
-      this.setState({hideSkipButton: false})
-    }
+    this.setState({prevIndex});
   }
 
   /**
@@ -239,16 +267,15 @@ export default class SwiperComponent extends Component {
    */
   renderButton = () => {
     const lastScreen = this.state.index === this.state.total - 1;
-    //console.log('lastScreen:'+lastScreen)
-    let test = this.state.hideSkipButton === lastScreen;
-    //console.log('compare: ' + test)
+    const hideSkipButton = lastScreen ? lastScreen : this.state.hideSkipButton;
+    if (lastScreen) { this }
     return(
       <View
         //pointerEvents="box-none"
         style={styles.buttonWrapper}
       >
         {
-          this.state.hideSkipButton
+          hideSkipButton
           ? (<View />) 
           : (
               <Button 
@@ -263,21 +290,12 @@ export default class SwiperComponent extends Component {
     )
   }
 
-  onSkipBtn = () => {
-    const state = this.state,
-      targetX = ( state.total - 1 ) * state.width;  
-    // Scroll to the last slide
-    this.ScrollView && this.ScrollView.scrollTo({ x: targetX, y: 0, animated: true });
-    this.updateIndex(targetX);
-    // this.updateIndex(720)
-    // this.setState({index: 2});
-  }
-
   /**
    * Render the component
    * @param 
    */
   render = ({ children } = this.props) => {
+    // console.log(this.state)
     return(
       <View
         style={styles.container}

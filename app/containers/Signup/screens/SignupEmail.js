@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Typeform from '../../../components/Form/Typeform';
 import StandardLoader from '../../../components/Loader/StandardLoader';
-import { validatePhone } from '../../../utilities/inputValidator';
+import { validateEmail } from '../../../utilities/inputValidator';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as signupActions from '../actions/';
@@ -29,7 +29,7 @@ import {
 import TextStyles from '../../../styles/TextStyles';
 import styles from './Styles';
 
-class SignupPhoneScreen extends Component {
+class SignupEmailScreen extends Component {
   static navigationOptions = {
     header: null,
   };
@@ -46,8 +46,8 @@ class SignupPhoneScreen extends Component {
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
       otpTransport: this.props.data.otpTransport,
-      errorPhone: this.props.data.errorPhone,
-    },
+      errorEmail: this.props.data.errorEmail,
+    }
   }
 
   _showModal = () => this.setState({isModalVisible: true})
@@ -56,7 +56,7 @@ class SignupPhoneScreen extends Component {
   onSubmitEditingHandler = async (text) => {
     this._hideModal();
     this.setState({isLoading: true});
-    let res = await validatePhone(this.state.data.phone);
+    let res = await validateEmail(this.state.data.email);
     this.setState({isLoading: false});
     if (res.isExists !== undefined) {
       let t = (res.validationErrorMessage == null) ? true : false;
@@ -67,13 +67,12 @@ class SignupPhoneScreen extends Component {
       this._showModal();
     }
   }
-  
+
   onChangeTextHandler = (text) => {
     if (!this.state.hideValidationMessage) { this.setState({hideValidationMessage: true}) }
 
     let newData = this.state.data;
-    newData.phone = text.replace(/\D/g,'');
-    newData.phoneOnScreen = this.phoneFormatter(newData.phone);
+    newData.email = text;
     
     this.setState({data: newData});
     this.props.actions.signupFormFill(newData);
@@ -82,20 +81,6 @@ class SignupPhoneScreen extends Component {
   onTouchableWithoutFeedbackPress = (text) => {
     Keyboard.dismiss();
     this.onSubmitEditingHandler(text);
-  }
-
-  phoneFormatter = (phone) => {
-    let len = (phone !== null && phone !== '') ? phone.length : 0;
-    // Simple add spaces every 4 digits
-    if (len > 0 && len <= 4) {
-      phone = phone
-    } else if (len > 4 && len <= 8) {
-      phone = phone.substring(0,4)+'-'+phone.substring(4,8)
-    } else if (len > 8) {
-      phone = phone.substring(0,4)+'-'+phone.substring(4,8)+'-'+phone.substring(8,12)
-    }
-
-    return phone;
   }
 
   onButtonPressed () {
@@ -111,6 +96,7 @@ class SignupPhoneScreen extends Component {
     return(
       <View style={styles.container}>
         <Typeform
+          inputAutoFocus
           subtitle={
             <Text>
               {'Baik, '}
@@ -118,18 +104,16 @@ class SignupPhoneScreen extends Component {
                 {this.props.data.name}
               </Text>
               <Text style={{fontSize: 24}}>
-                {'\n'}Silakan mengisi nomor telepon Anda
+                {'\n'}Silakan masukkan email Anda
               </Text>
             </Text>
           }
-          inputAutoFocus
           subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
-          inputPlaceholder={uiText.signup.placeholder.phone}
+          inputPlaceholder={uiText.signup.placeholder.email}
           inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
-          inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
-          inputKeyboardType='phone-pad'
-          inputMaxLength={14}
-          maskValue={this.props.data.phoneOnScreen}
+          inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 30, fontWeight: 'bold',}]}
+          inputKeyboardType='email-address'
+          inputMaxLength={254}
           onChangeTextHandler={this.onChangeTextHandler.bind(this)}
           onSubmitEditingHandler={this.onSubmitEditingHandler.bind(this)}
           onTouchableWithoutFeedbackPress={this.onTouchableWithoutFeedbackPress.bind(this)}
@@ -148,7 +132,7 @@ class SignupPhoneScreen extends Component {
           modalButtonNegativeOnPress={this._hideModal.bind(this)}
           modalButtonPositiveOnPress={this.onSubmitEditingHandler.bind(this)}
         />
-        
+
         {this.state.isLoading ? <StandardLoader loaderColor={COLOR_LIGHT}/> : null }
       
       </View>
@@ -174,4 +158,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupPhoneScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignupEmailScreen);

@@ -1,8 +1,11 @@
 import {
   SIGNUP_FORM_FILL,
+  SIGNUP_CHECK_EXISTS,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
+  LOADER_SHOW,
+  LOADER_HIDE,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -11,6 +14,9 @@ const initialState = {
   isFillingForm: false,
   name: null,
   phone: null,
+  phoneOnScreen: null,
+  email: null,
+  otpTransport: null,
 }
 
 export default function signup(state = initialState, action) {
@@ -21,6 +27,10 @@ export default function signup(state = initialState, action) {
         isSigningIn: false,
         isFillingForm: true,
         name: action.name,
+        phone: action.phone,
+        phoneOnScreen: action.phoneOnScreen,
+        email: action.email,
+        otpTransport: action.otpTransport,
       })
     case SIGNUP_REQUEST:
       return Object.assign({}, state, {
@@ -28,6 +38,10 @@ export default function signup(state = initialState, action) {
         isSigningIn: true,
         isFillingForm: false,
         name: action.name,
+        phone: action.phone,
+        phoneOnScreen: action.phoneOnScreen,
+        email: action.email,
+        otpTransport: action.otpTransport,
       })
     default:
       return state;

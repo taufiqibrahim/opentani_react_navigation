@@ -19,7 +19,7 @@
  export const COLOR_TEXT_LIGHT     = '#FAFAFA';
  export const COLOR_TEXT_GREY_LIGHT      = '#ECEFF0';
 
- export const COLOR_PLACEHOLDER_ON_GREEN = '#008A3A';
+ export const COLOR_DARK_GREEN = '#008A3A';
 
  export const COLOR_GREEN 			= '#00C853';
  export const COLOR_GREEN_LIGHT 	= '#64DD17';

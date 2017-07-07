@@ -31,19 +31,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  dot: {
-    backgroundColor: COLOR_GREY,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginLeft: 3,
-    marginRight: 3,
-    marginTop: 3,
-    marginBottom: 3,
-  },
-  activeDot: {
-    backgroundColor: COLOR_GREEN,
-  },
   onboardingControlOuter: {
     flex: 1,
     flexDirection: 'row',
@@ -73,15 +60,15 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     height: 36,
-    backgroundColor: COLOR_LIGHT,
+    backgroundColor: 'transparent',
     borderRadius: 18,
     borderWidth: 2,
-    borderColor: COLOR_GREEN,
+    borderColor: 'black',
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonTextStyle: {
-    color: COLOR_GREEN,
+    color: 'black',
   }
 });

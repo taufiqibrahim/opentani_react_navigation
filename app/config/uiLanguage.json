@@ -4,13 +4,17 @@
     "next": "BERIKUTNYA",
     "page_1": {
       "title": "Pemetaan Lahan",
-      "descriptor": "Petakan lahan Anda. Ketahui luas sebenarnya.",
+      "descriptor": "Dengan memetakan lahan, Anda mengetahui luas pasti sekaligus berkontribusi dalam meningkatkan akurasi data pertanian Indonesia.",
     },
     "page_2": {
       "title": "Buku Tani",
       "descriptor": "Catatan aktivitas tani, pengeluaran, hasil panen dan keuntungan penjualan",
     },
     "page_3": {
+      "title": "Pelaporan dan Informasi Hama",
+      "descriptor": "Laporkan kejadian hama dan penyakit. Dapatkan informasi terbaru mengenai hama dan cara pencegahannya.",
+    },
+    "page_4": {
       "title": "Pelaporan dan Informasi Hama",
       "descriptor": "Laporkan kejadian hama dan penyakit. Dapatkan informasi terbaru mengenai hama dan cara pencegahannya.",
     },

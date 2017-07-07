@@ -38,6 +38,13 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		margin: 8,		
 	},
+	BODYSMALL: {
+		fontFamily: 'sans-serif-light',
+		fontSize: 14,
+		alignSelf: 'center',
+		textAlign: 'center',
+		margin: 8,		
+	},
 	SUBTITLE: {
 		fontFamily: 'sans-serif-light',
 		fontSize: 32,

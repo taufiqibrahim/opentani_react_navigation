@@ -192,8 +192,8 @@ export default class SwiperComponent extends Component {
       return null;
     }
 
-    const ActiveDot = <View style={[styles.dot, styles.activeDot]} />
-    const Dot = <View style={styles.dot} />;
+    const ActiveDot = <View style={[this.props.paginationDotStyle, this.props.paginationActiveDotStyle]} />
+    const Dot = <View style={this.props.paginationDotStyle} />;
 
     let dots = [];
 
@@ -244,8 +244,8 @@ export default class SwiperComponent extends Component {
                 )
               : (
                   <StandardButton
-                    buttonStyle={styles.buttonStyle}
-                    buttonTextStyle={[TextStyles.BODY, styles.buttonTextStyle]}
+                    buttonStyle={[styles.buttonStyle, this.props.swiperLeftButtonStyle]}
+                    buttonTextStyle={[TextStyles.BODY, styles.buttonTextStyle, this.props.swiperLeftButtonTextStyle]}
                     buttonLabel={'LEWATI'}
                     buttonOnPress={this.onSkipBtn}
                   />
@@ -263,8 +263,8 @@ export default class SwiperComponent extends Component {
                 )
               : (
                   <StandardButton
-                    buttonStyle={styles.buttonStyle}
-                    buttonTextStyle={[TextStyles.BODY, styles.buttonTextStyle]}
+                    buttonStyle={[styles.buttonStyle, this.props.swiperRightButtonStyle]}
+                    buttonTextStyle={[TextStyles.BODY, styles.buttonTextStyle, this.props.swiperRightButtonTextStyle]}
                     buttonLabel={'BERIKUTNYA'}
                     buttonOnPress={this.onNextBtn}
                   />
@@ -282,8 +282,6 @@ export default class SwiperComponent extends Component {
     // Scroll to the last slide
     this.ScrollView && this.ScrollView.scrollTo({ x: targetX, y: 0, animated: true });
     this.updateIndex(targetX);
-    // this.updateIndex(720)
-    // this.setState({index: 2});
   }
 
   onNextBtn = () => {

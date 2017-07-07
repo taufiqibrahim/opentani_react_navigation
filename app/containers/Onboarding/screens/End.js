@@ -12,6 +12,7 @@ import {
   COLOR_GREEN,
   COLOR_LIGHT,
 } from '../../../styles/ColorPalette';
+import styles from './Styles';
 import text_styles from '../../../styles/TextStyles';
 
 class End extends Component {
@@ -31,9 +32,9 @@ class End extends Component {
   render(){
     console.log(this.props);
     return(
-      <View style={styles.wrapper}>
+      <View style={styles.container}>
         <View style={styles.boxUpper}>
-          <Text style={[text_styles.XL, {color: COLOR_GREEN}]}>
+          <Text style={[text_styles.XL, {color: COLOR_LIGHT}]}>
             {this.props.onboard_title}
           </Text>
         </View>
@@ -46,8 +47,8 @@ class End extends Component {
           <View style={{flex:1, flexDirection: 'row'}}>
             <View style={styles.buttonWrapper}>
               <StandardButton 
-                buttonStyle={[styles.buttonStyles, {borderColor: COLOR_GREEN}]} 
-                buttonTextStyle={[styles.buttonTextStyle, {color: COLOR_GREEN}]}
+                buttonStyle={[styles.buttonStyles, {borderColor: COLOR_LIGHT}]} 
+                buttonTextStyle={[styles.buttonTextStyle, {color: COLOR_LIGHT}]}
                 buttonLabel={this.props.buttonLabel}
                 buttonOnPress={this.handle.bind(this)}
               />
@@ -62,66 +63,4 @@ class End extends Component {
   }
 }
 
-//export default connect()(End)
-export default End
-
-const styles = StyleSheet.create({
-  // Wrapper layout
-  wrapper: {
-    flex: 1,
-    alignItems: 'stretch',
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-  },
-  // Footer
-  footer: {
-    flex: 1,
-    backgroundColor: COLOR_LIGHT,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    paddingBottom: 32,
-  },
-  // Upper Box
-  boxUpper: {
-    flex: 1.5,
-    backgroundColor: COLOR_LIGHT,
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-  },
-  // Lower Box
-  boxLower: {
-    flex: 1,
-    backgroundColor: COLOR_LIGHT,
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-  },
-  // Button wrapper
-  buttonWrapper: {
-    flex:1,
-    flexDirection: 'column',
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    paddingHorizontal: 8,
-  },
-  // Button
-  buttonStyles: {
-    height: 48,
-    borderRadius: 24,
-    borderWidth: 2,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  // Button Text Style
-  buttonTextStyle: {
-    fontFamily: 'sans-serif',
-    fontSize: 16,
-    color: COLOR_LIGHT,
-  }
-})
+export default End;

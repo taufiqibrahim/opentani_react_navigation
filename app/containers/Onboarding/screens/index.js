@@ -23,6 +23,13 @@ class OnboardingScreen extends Component {
     return(
       <SwiperComponent
         {...this.props}
+        paginationDotStyle={styles.paginationDotStyle}
+        paginationActiveDotStyle={styles.paginationActiveDotStyle}
+        
+        swiperLeftButtonStyle={styles.buttonStyles}
+        swiperLeftButtonTextStyle={styles.buttonTextStyle}
+        swiperRightButtonStyle={styles.buttonStyles}
+        swiperRightButtonTextStyle={styles.buttonTextStyle}
       >
         <View 
           style={styles.slide}
@@ -55,7 +62,7 @@ class OnboardingScreen extends Component {
             {...this.props}
             onboard_title={'opentani'}
             onboard_subtitle={'Bikin pertanian keren lagi'}
-            buttonLabel={'Sentuh untuk memulai'}
+            buttonLabel={'Bawa saya ke dalam aplikasi'}
           />
         </View>
       </SwiperComponent>

@@ -3,6 +3,8 @@ import {
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
+  LOADER_SHOW,
+  LOADER_HIDE,
 } from './actionTypes';
 
 export function signupFormFill(data) {
@@ -16,3 +18,16 @@ export function signupFormFill(data) {
   }
 }
 
+export function signupLoaderShow() {
+  return {
+    type: LOADER_SHOW,
+    isLoading: true,
+  }
+}
+
+export function signupLoaderHide() {
+  return {
+    type: LOADER_HIDE,
+    isLoading: false,
+  }
+}

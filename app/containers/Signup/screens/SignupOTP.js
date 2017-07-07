@@ -113,16 +113,24 @@ class SignupOTPScreen extends Component {
       <Typeform
         subtitle={
           <Text>
-            <Text style={{fontWeight: 'bold'}}>{'Masukkan OTP'}</Text>
+            <Text style={{fontWeight: 'bold'}}>{uiText.signup.question.otp}</Text>
             <Text style={{fontSize: 20}}>
-              {'\n'}{'\n'}{'One Time Password (OTP) telah dikirim melalui '}{trans}{' ke '}{desti}. Silakan masukkan di sini untuk memverifikasi.
+              {'\n'}
+              {uiText.signup.question.activationInfo}
+              <Text style={{fontWeight: 'bold'}}>{trans}</Text>
+              {' '}
+              {uiText.signup.question.to}
+              {' '}
+              <Text style={{fontWeight: 'bold'}}>{desti}</Text>
+              {'. '}
+              {uiText.signup.question.activationCommand}
             </Text>
           </Text>
         }
         inputAutoFocus={false}
         inputSecureTextEntry={true}
-        subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
-        inputPlaceholder={uiText.placeholder.otp}
+        subtitleTextStyle={[TextStyles.H1, {fontWeight: 'normal', color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
+        inputPlaceholder={uiText.signup.placeholder.otp}
         inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
         inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'center', fontSize: 36, fontWeight: 'bold'}]}
         inputKeyboardType='phone-pad'
@@ -136,7 +144,7 @@ class SignupOTPScreen extends Component {
         buttonShow={this.state.buttonShow}
         buttonLabel='Verifikasi'
         buttonStyles={styles.buttonStyles}
-        buttonTextStyle={styles.buttonTextStyle}
+        buttonTextStyle={[TextStyles.H1, styles.buttonTextStyle]}
         buttonOnPress={this.onButtonPressed.bind(this)}
       />
     )

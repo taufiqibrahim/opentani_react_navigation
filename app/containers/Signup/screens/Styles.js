@@ -10,21 +10,23 @@ import {
 const { width, height} = Dimensions.get('window');
 
 export default StyleSheet.create({
-  // Button
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   buttonStyles: {
     height: height/10,
     backgroundColor: COLOR_LIGHT,
-    borderRadius: height/20,
+    borderRadius: height/100,
     borderWidth: 2,
     borderColor: COLOR_GREEN,
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // Button Text Style
   buttonTextStyle: {
-    fontFamily: 'sans-serif',
-    fontSize: 30,
     color: COLOR_GREEN,
   }
 })

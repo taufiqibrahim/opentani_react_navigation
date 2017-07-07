@@ -88,9 +88,9 @@ class SignupNameScreen extends Component {
 		return(
       <Typeform
         inputAutoFocus
-        subtitle='Siapa nama Anda?'
+        subtitle={uiText.signup.question.personName}
         subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
-        inputPlaceholder={uiText.placeholder.personName}
+        inputPlaceholder={uiText.signup.placeholder.personName}
         inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
         inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
         inputKeyboardType='email-address'
@@ -104,7 +104,7 @@ class SignupNameScreen extends Component {
         buttonShow={this.state.buttonShow}
         buttonLabel='Lanjut'
         buttonStyles={styles.buttonStyles}
-        buttonTextStyle={styles.buttonTextStyle}
+        buttonTextStyle={[TextStyles.H1, styles.buttonTextStyle]}
         buttonOnPress={this.onButtonPressed.bind(this)}
       />
     )

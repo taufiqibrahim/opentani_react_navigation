@@ -3,3 +3,6 @@ export const SIGNUP_FORM_FILL = 'SIGNUP_FORM_FILL';
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+
+export const LOADER_SHOW = 'LOADER_SHOW';
+export const LOADER_HIDE = 'LOADER_HIDE';

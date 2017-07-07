@@ -4,6 +4,8 @@ import {
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
+  LOADER_SHOW,
+  LOADER_HIDE,
 } from '../actions/actionTypes';
 
 const initialState = {

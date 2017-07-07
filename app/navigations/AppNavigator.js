@@ -9,13 +9,18 @@ import SignupEmailScreen from '../containers/Signup/screens/SignupEmail';
 import SignupPhoneScreen from '../containers/Signup/screens/SignupPhone';
 import SignupOTPScreen from '../containers/Signup/screens/SignupOTP';
 import HomeScreen from '../containers/Home';
-import Test from '../containers/Test/TestFade';
+
+import TestScreen from '../components/Loader/StandardLoader';
 
 const navOptions = {
   navigationOptions: {
     header: null
   },
 }
+
+const TestStack = StackNavigator({
+  Test: {screen: TestScreen},
+})
 
 const OnboardingStack = StackNavigator({
   Onboarding: {screen: OnboardingScreen},
@@ -47,7 +52,7 @@ const HomeStack = StackNavigator({
 })
 
 export const AppNavigator = StackNavigator({
-
+  //Test: {screen: TestStack},
   Onboarding: {screen: OnboardingStack},
   Wall: {screen: WallStack},
 

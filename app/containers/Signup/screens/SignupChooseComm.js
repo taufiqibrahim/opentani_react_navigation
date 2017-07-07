@@ -1,5 +1,7 @@
 'use strict'
 
+import uiText from '../../../config/uiLanguage.json';
+
 // Libraries imports
 import React, {Component} from 'react';
 import { Text, StyleSheet } from 'react-native';
@@ -62,7 +64,7 @@ class SignupChooseCommScreen extends Component {
               {'\n'}
             </Text>
             <Text style={{fontSize: 24}}>
-              {'\n'}Anda ingin menerima verifikasi melalui?
+              {'\n'}{uiText.signup.question.otpTransportQuestion}
             </Text>
           </Text>
         }

@@ -20,24 +20,33 @@
     },
   },
   "signup": {
+    "question": {
+      "personName": "Siapa nama Anda?",
+      "otp": "Aktivasi Akun",
+      "otpTransportQuestion": "Anda ingin menerima kode aktivasi melalui?",
+      "activationInfo": "Kode aktivasi telah dikirim melalui ",
+      "to": "ke",
+      "from": "dari",
+      "activationCommand": "Silakan memasukkan kode aktivasi Anda."
+    },
     "placeholder": {
       "personName": "Omar Bakrie",
       "email": "omar.bakrie@op.id",
       "phone": "0811-858-6273",
-      "otp": "*  *  *  *"
+      "otp": "*  *  *  *",
     },
-    "validationErrorMessage": {
-      "networkError": "",
-      "nameInvalid": "Nama tidak boleh kurang dari 3 huruf",
-      "nameIsEmpty": "Nama tidak boleh kosong",
-      "emailInvalid": "Format email salah",
-      "emailIsEmpty": "Email tidak boleh kosong",
-      "emailAlreadyTaken": "Email sudah ada yang menggunakan",
-      "phoneInvalid": "Jumlah nomor kurang dari 10",
-      "phoneIsEmpty": "Nomor telepon tidak boleh kosong",
-      "phoneAlreadyTaken": "Nomor telepon sudah ada yang menggunakan",
-      "otpInvalid": "Sandi OTP harus 4 angka",
-      "otpIsEmpty": "Anda belum memasukkan sandi OTP",
-    },
+  },
+  "validationErrorMessage": {
+    "networkError": "",
+    "nameInvalid": "Nama tidak boleh kurang dari 3 huruf",
+    "nameIsEmpty": "Nama tidak boleh kosong",
+    "emailInvalid": "Format email salah",
+    "emailIsEmpty": "Email tidak boleh kosong",
+    "emailAlreadyTaken": "Email sudah ada yang menggunakan",
+    "phoneInvalid": "Jumlah nomor kurang dari 10",
+    "phoneIsEmpty": "Nomor telepon tidak boleh kosong",
+    "phoneAlreadyTaken": "Nomor telepon sudah ada yang menggunakan",
+    "otpInvalid": "Kode aktivasi harus 4 angka",
+    "otpIsEmpty": "Kode aktivasi belum dimasukkan",
   },
 }

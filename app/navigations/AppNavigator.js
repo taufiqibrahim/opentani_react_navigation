@@ -1,7 +1,7 @@
 import {
   StackNavigator,
 } from 'react-navigation';
-import OnboardingScreen from '../containers/Onboarding';
+import OnboardingScreen from '../containers/Onboarding/screens';
 import WallScreen from '../containers/Wall/screens/'
 import SignupNameScreen from '../containers/Signup/screens/SignupName';
 import SignupChooseCommScreen from '../containers/Signup/screens/SignupChooseComm';

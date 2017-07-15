@@ -24,7 +24,7 @@ import {
   COLOR_GREEN,
   COLOR_TEXT_LIGHT,
   COLOR_TEXT_DARKER,
-  COLOR_PLACEHOLDER_ON_GREEN,
+  COLOR_DARK_GREEN,
 } from '../../../styles/ColorPalette';
 import TextStyles from '../../../styles/TextStyles';
 import styles from './Styles';
@@ -46,6 +46,7 @@ class SignupPhoneScreen extends Component {
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
       otpTransport: this.props.data.otpTransport,
+      userName: this.props.data.userName,
       errorPhone: this.props.data.errorPhone,
     },
   }
@@ -102,7 +103,7 @@ class SignupPhoneScreen extends Component {
     const navigateActions = NavigationActions.navigate({
       routeName: 'Signup',
       params: {},
-      action: NavigationActions.navigate({ routeName: 'SignupOTP' })
+      action: NavigationActions.navigate({ routeName: 'SignupSubmitConfirmation' })
     });
     this.props.navigation.dispatch(navigateActions);
   }
@@ -125,7 +126,7 @@ class SignupPhoneScreen extends Component {
           inputAutoFocus
           subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
           inputPlaceholder={uiText.signup.placeholder.phone}
-          inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
+          inputPlaceholderColor= {COLOR_DARK_GREEN}
           inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
           inputKeyboardType='phone-pad'
           inputMaxLength={14}
@@ -163,6 +164,7 @@ function mapStateToProps(state) {
     phone: state.signup.phone,
     phoneOnScreen: state.signup.phoneOnScreen,
     otpTransport: state.signup.otpTransport,
+    userName: state.signup.userName,
   }
 
   return { data }

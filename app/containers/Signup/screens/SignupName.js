@@ -41,6 +41,7 @@ class SignupNameScreen extends Component {
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
       otpTransport: this.props.data.otpTransport,
+      userName: this.props.data.userName,
     }
   }
 
@@ -117,7 +118,8 @@ function mapStateToProps(state) {
     email: state.signup.email,
     phone: state.signup.phone,
     phoneOnScreen: state.signup.phoneOnScreen,
-    otpSentVia: state.signup.otpSentVia,
+    otpTransport: state.signup.otpTransport,
+    userName: state.signup.userName,
   }
 
   return { data }

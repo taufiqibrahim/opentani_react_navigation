@@ -36,6 +36,7 @@ class SignupChooseCommScreen extends Component {
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
       otpTransport: this.props.data.otpTransport,
+      userName: this.props.data.userName,
     }
   }
 
@@ -92,6 +93,7 @@ function mapStateToProps(state) {
     phone: state.signup.phone,
     phoneOnScreen: state.signup.phoneOnScreen,
     otpTransport: state.signup.otpTransport,
+    userName: state.signup.userName,
   }
 
   return { data }

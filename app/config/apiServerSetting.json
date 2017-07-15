@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "url": "http://10.0.2.2:3000",
+    "unsignedToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJnaWxhbHVuZHJvaW5pamFuZ2Fuc2FtcGVib2NvciIsImlhdCI6MTQ5NjYwMTYxMCwiZXhwIjozMzA1NDIwMTYxMH0.L9k2b9a5SNqvsUYld7FPk0HcXxhCKuoB69sXY2cpg78",
+  },
+  "prod": {
+    "url": "http://202.83.123.92:3000",
+    "unsignedToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJnaWxhbHVuZHJvaW5pamFuZ2Fuc2FtcGVib2NvciIsImlhdCI6MTQ5NjYwMTYxMCwiZXhwIjozMzA1NDIwMTYxMH0.L9k2b9a5SNqvsUYld7FPk0HcXxhCKuoB69sXY2cpg78",
+  }
+}

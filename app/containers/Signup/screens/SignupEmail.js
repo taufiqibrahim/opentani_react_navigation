@@ -46,6 +46,7 @@ class SignupEmailScreen extends Component {
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
       otpTransport: this.props.data.otpTransport,
+      userName: this.props.data.userName,
       errorEmail: this.props.data.errorEmail,
     }
   }
@@ -73,6 +74,7 @@ class SignupEmailScreen extends Component {
 
     let newData = this.state.data;
     newData.email = text;
+    newData.userName = text;
     
     this.setState({data: newData});
     this.props.actions.signupFormFill(newData);
@@ -87,7 +89,7 @@ class SignupEmailScreen extends Component {
     const navigateActions = NavigationActions.navigate({
       routeName: 'Signup',
       params: {},
-      action: NavigationActions.navigate({ routeName: 'SignupOTP' })
+      action: NavigationActions.navigate({ routeName: 'SignupSubmitConfirmation' })
     });
     this.props.navigation.dispatch(navigateActions);
   }
@@ -147,6 +149,7 @@ function mapStateToProps(state) {
     phone: state.signup.phone,
     phoneOnScreen: state.signup.phoneOnScreen,
     otpTransport: state.signup.otpTransport,
+    userName: state.signup.userName,
   }
 
   return { data }

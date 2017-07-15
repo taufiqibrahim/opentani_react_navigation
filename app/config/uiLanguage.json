@@ -22,6 +22,7 @@
   "signup": {
     "question": {
       "personName": "Siapa nama Anda?",
+      "submitConfirmation": "Anda setuju untuk mendaftar dengan data berikut?",
       "otp": "Aktivasi Akun",
       "otpTransportQuestion": "Anda ingin menerima kode aktivasi melalui?",
       "activationInfo": "Kode aktivasi telah dikirim melalui ",

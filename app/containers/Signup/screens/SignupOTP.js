@@ -10,6 +10,7 @@ import {
   Keyboard,
 } from 'react-native';
 import Typeform from '../../../components/Form/Typeform';
+import StandardLoader from '../../../components/Loader/StandardLoader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as signupActions from '../actions/';
@@ -32,16 +33,18 @@ class SignupOTPScreen extends Component {
   };
 
   state={
+    isLoading: false,
     buttonShow: false,
     hideValidationMessage: true,
     validationMessage: null,
     otpOnScreen: null,
     data: {
+      userName: this.props.data.userName,
       name: this.props.data.name,
       email: this.props.data.email,
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
-      otp: null,
+      otp: this.props.data.otp,
       otpTransport: this.props.data.otpTransport,
     }
   }
@@ -71,6 +74,9 @@ class SignupOTPScreen extends Component {
     let newData = this.state.data;
     newData.otp = text.replace(/\D/g,'');
     this.setState({otpOnScreen: this.otpFormatter(newData.otp)});
+
+    this.setState({data: newData});
+    this.props.actions.signupFormFill(newData);
   }
 
   onTouchableWithoutFeedbackPress = (text) => {
@@ -85,18 +91,16 @@ class SignupOTPScreen extends Component {
      *  (?=.) Positive look ahead. Checks if the captured character is followed by another character.
      *  "$1 " Replacement string. $1 Contains the character captured in group 1, followed by a space
      *   g Global modifier. Applies the replace globally for all the matches within the string.
-     */
-    
+     */    
     return otp;
   }
 
-  otpFormatter2 = (otp) => {
-    let n = otp.length;
-    let res = otp.split("");
-  }
-
   onButtonPressed() {
-    console.log('onButtonPressed')
+    let tos = {
+      otp: this.state.data.otp,
+      userName: this.state.data.userName,
+    };
+    this.props.actions.signupVerification(tos);
   }
 
   render(){
@@ -153,6 +157,7 @@ class SignupOTPScreen extends Component {
 
 function mapStateToProps(state) {
   const data = {
+    userName: state.signup.userName,
     name: state.signup.name,
     email: state.signup.email,
     phone: state.signup.phone,

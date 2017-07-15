@@ -7,6 +7,7 @@ import SignupNameScreen from '../containers/Signup/screens/SignupName';
 import SignupChooseCommScreen from '../containers/Signup/screens/SignupChooseComm';
 import SignupEmailScreen from '../containers/Signup/screens/SignupEmail';
 import SignupPhoneScreen from '../containers/Signup/screens/SignupPhone';
+import SignupSubmitConfirmationScreen from '../containers/Signup/screens/SignupSubmitConfirmation';
 import SignupOTPScreen from '../containers/Signup/screens/SignupOTP';
 import HomeScreen from '../containers/Home';
 
@@ -35,6 +36,7 @@ const SignupStack = StackNavigator({
   SignupChooseComm: {screen: SignupChooseCommScreen},
   SignupEmail: {screen: SignupEmailScreen},
   SignupPhone: {screen: SignupPhoneScreen},
+  SignupSubmitConfirmation: {screen: SignupSubmitConfirmationScreen},
   SignupOTP: {screen: SignupOTPScreen},
 },
 {
@@ -53,14 +55,15 @@ const HomeStack = StackNavigator({
 
 export const AppNavigator = StackNavigator({
   //Test: {screen: TestStack},
-  Onboarding: {screen: OnboardingStack},
-  Wall: {screen: WallStack},
+  //Onboarding: {screen: OnboardingStack},
+  //Wall: {screen: WallStack},
 
-  Signup: {screen: SignupStack},
+  //Signup: {screen: SignupStack},
     //SignupEmail: {screen: SignupEmailScreen},
     //SignupChooseComm: {screen: SignupChooseCommScreen},
     //SignupPhone: {screen: SignupPhoneScreen},
-    //SignupOTP: {screen: SignupOTPScreen},
+    //SignupSubmitConfirmation: {screen: SignupSubmitConfirmationScreen},
+    SignupOTP: {screen: SignupOTPScreen},
   Home: { screen: HomeStack},
 
 });

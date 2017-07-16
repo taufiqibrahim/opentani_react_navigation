@@ -1,11 +1,10 @@
-/*import {
-  SIGNUP_FORM_FILL,
-  SIGNUP_REQUEST,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
-} from '../actions/actionTypes';*/
+import {REHYDRATE} from 'redux-persist/constants';
+import {
+  ONBOARDING_FINISHED,
+} from '../actions/actionTypes';
 
 const initialState = {
+  rehydrated: false,
   isOnboard: false,
   isSignedIn: false,
 }
@@ -13,21 +12,14 @@ const initialState = {
 export default function userState(state = initialState, action) {
   switch(action.type) {
     /* TODO ADD OTHER STATE
-    case SIGNUP_FORM_FILL:
-      return Object.assign({}, state, {
-        isSignedIn: false,
-        isSigningIn: false,
-        isFillingForm: true,
-        name: action.name,
-      })
-    case SIGNUP_REQUEST:
-      return Object.assign({}, state, {
-        isSignedIn: false,
-        isSigningIn: true,
-        isFillingForm: false,
-        name: action.name,
-      })
+      
     */
+    case REHYDRATE:
+      return {...state, ...action.payload.userState, rehydrated: true}
+    case ONBOARDING_FINISHED:
+      return Object.assign({}, state, {
+        isOnboard: true,
+      })
     default:
       return state;
   }

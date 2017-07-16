@@ -19,7 +19,6 @@ class OnboardingScreen extends Component {
   }
 
   render(){
-    console.log(this.props)
     return(
       <SwiperComponent
         {...this.props}

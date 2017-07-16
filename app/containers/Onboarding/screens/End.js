@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as userStateActions from '../../../stateManager/actions/';
 import { NavigationActions } from 'react-navigation';
 import StandardButton from '../../../components/Button/StandardButton';
 import {
@@ -26,11 +27,13 @@ class End extends Component {
       params: {},
       action: NavigationActions.navigate({ routeName: 'Wall' })
     });
+
+    this.props.actions.onboardingFinished();
     this.props.navigation.dispatch(navigateActions);    
   }
 
   render(){
-    console.log(this.props);
+    
     return(
       <View style={styles.container}>
         <View style={styles.boxUpper}>
@@ -63,4 +66,18 @@ class End extends Component {
   }
 }
 
-export default End;
+function mapStateToProps(state) {
+  const data = {
+    isOnboard: state.userState.isOnboard,
+  }
+
+  return { data }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators( Object.assign( {}, userStateActions ), dispatch ),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (End);

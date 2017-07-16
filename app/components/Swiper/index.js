@@ -16,7 +16,7 @@ const { width, height} = Dimensions.get('window');
 export default class SwiperComponent extends Component {
 
   componentDidMount(){
-    console.log(this.props)
+    //console.log(this.props)
   }
   // Props for ScrollView component
   static defaultProps = {

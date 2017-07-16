@@ -1,8 +1,10 @@
+import { AsyncStorage } from 'react-native';
 // import { createStore, applyMiddleware } from 'redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 //import devToolsEnhancer from 'remote-redux-devtools';
 import { composeWithDevTools } from 'remote-redux-devtools';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import rootReducer from './reducers';
 
 
@@ -31,8 +33,16 @@ export default function getStore() {
   const store = createStore(
     rootReducer,
     composeWithDevTools(
-      applyMiddleware(thunk)
+      applyMiddleware(thunk),
+      autoRehydrate(),
     )
   );
+
+  // Begin persisting the store
+  persistStore(store, {
+    whitelist: ['userState'],
+    storage: AsyncStorage,
+  })
+
   return store;
 }

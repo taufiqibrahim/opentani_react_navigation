@@ -1,6 +1,7 @@
 import {
   StackNavigator,
 } from 'react-navigation';
+import BootScreen from '../containers/Boot/screens'
 import OnboardingScreen from '../containers/Onboarding/screens';
 import WallScreen from '../containers/Wall/screens/'
 import SignupNameScreen from '../containers/Signup/screens/SignupName';
@@ -21,6 +22,10 @@ const navOptions = {
 
 const TestStack = StackNavigator({
   Test: {screen: TestScreen},
+})
+
+const BootStack = StackNavigator({
+  Boot: {screen: BootScreen},
 })
 
 const OnboardingStack = StackNavigator({
@@ -54,16 +59,16 @@ const HomeStack = StackNavigator({
 })
 
 export const AppNavigator = StackNavigator({
-  //Test: {screen: TestStack},
-  //Onboarding: {screen: OnboardingStack},
-  //Wall: {screen: WallStack},
+  Boot: {screen: BootStack},
+  Onboarding: {screen: OnboardingStack},
+  Wall: {screen: WallStack},
 
-  //Signup: {screen: SignupStack},
+  Signup: {screen: SignupStack},
     //SignupEmail: {screen: SignupEmailScreen},
     //SignupChooseComm: {screen: SignupChooseCommScreen},
     //SignupPhone: {screen: SignupPhoneScreen},
     //SignupSubmitConfirmation: {screen: SignupSubmitConfirmationScreen},
-    SignupOTP: {screen: SignupOTPScreen},
+    //SignupOTP: {screen: SignupOTPScreen},
   Home: { screen: HomeStack},
 
 });

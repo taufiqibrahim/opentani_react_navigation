@@ -4,17 +4,21 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import StandardButton from '../../../components/Button/StandardButton';
-import {
-  COLOR_GREEN,
-  COLOR_LIGHT,
-  COLOR_DEEP_ORANGE,
-} from '../../../styles/ColorPalette';
-import styles from './Styles';
-import TextStyles from '../../../styles/TextStyles';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { NavigationActions } from 'react-navigation';
+
+import StandardButton from '../../../components/Button/StandardButton';
+
+import {
+  COLOR_GREEN,
+  COLOR_LIGHT,
+  COLOR_DEEP_ORANGE
+} from '../../../styles/ColorPalette';
+import TextStyles from '../../../styles/TextStyles';
+import { ButtonSS } from '../../../styles/ButtonStyles';
+import styles from '../styles/';
 
 class WallScreen extends Component {
   static navigationOptions = {
@@ -29,7 +33,14 @@ class WallScreen extends Component {
     });
     this.props.navigation.dispatch(navigateActions);
   }
-
+  onEnterLogin () {
+    const navigateActions = NavigationActions.navigate({
+      routeName: 'Login',
+      params: {},
+      action: NavigationActions.navigate({ routeName: 'LoginChooseCommScreen' })
+    });
+    this.props.navigation.dispatch(navigateActions);
+  }
   onEnterUnsigned () {
     const navigateActions = NavigationActions.navigate({
       routeName: 'Home',
@@ -40,7 +51,6 @@ class WallScreen extends Component {
   }
 
   render(){
-    console.log(this.props);
     return(
       <View style={styles.container}>
         <View style={styles.boxUpper}>
@@ -50,22 +60,25 @@ class WallScreen extends Component {
         </View>
         <View style={styles.boxDescriptor}>
           <Text style={TextStyles.GUIDE}>
-            {'Bergabunglah dengan komunitas opentani untuk manfaat penuh'}
+            {'Bergabunglah dengan komunitas Opentani untuk manfaat penuh'}
           </Text>
         </View>
         <View style={styles.boxButton}>
-          <View style={{flex:1, flexDirection: 'row'}}>
-            <View style={styles.buttonWrapper}>
+          <View style={styles.buttonWrapper}>
+            <View style={{flex: 2}}>
               <StandardButton 
-                buttonStyle={styles.buttonNegative}
-                buttonTextStyle={[TextStyles.H2, styles.buttonNegativeTextStyle]}
+                buttonStyle={[ButtonSS.buttonLineLarge, ButtonSS.buttonNegative]}
+                buttonTextStyle={[TextStyles.H2, ButtonSS.buttonTextLineLarge, ButtonSS.buttonTextNegative]}
                 buttonLabel='Pengguna baru' 
                 buttonOnPress={this.onEnterSignup.bind(this)} 
               />
+            </View>
+            <View style={{flex:1}}>
               <StandardButton 
-                buttonStyle={styles.buttonPositive}
-                buttonTextStyle={[TextStyles.H2, styles.buttonPositiveTextStyle]}
+                buttonStyle={[ButtonSS.buttonFillLarge, ButtonSS.buttonPositive]}
+                buttonTextStyle={[TextStyles.H2, ButtonSS.buttonTextFillLarge, ButtonSS.buttonTextPositive]}
                 buttonLabel='Masuk' 
+                buttonOnPress={this.onEnterLogin.bind(this)}
               />
             </View>
           </View>
@@ -79,8 +92,10 @@ class WallScreen extends Component {
           <View style={{flex:1, flexDirection: 'row'}}>
             <View style={styles.buttonWrapper}>
               <StandardButton 
-                buttonStyle={styles.buttonUnsigned}
-                buttonTextStyle={[TextStyles.H2, styles.buttonUnsignedTextStyle]}
+                buttonStyle={[ButtonSS.buttonLineLarge, ButtonSS.buttonNegative, 
+                  // {backgroundColor: COLOR_DEEP_ORANGE, borderColor: COLOR_DEEP_ORANGE}
+                  ]}
+                buttonTextStyle={[TextStyles.H2, ButtonSS.buttonTextLineLarge, ButtonSS.buttonTextNegative]}
                 buttonLabel='Coba dulu. Bergabung nanti' 
                 buttonOnPress={this.onEnterUnsigned.bind(this)} 
               />

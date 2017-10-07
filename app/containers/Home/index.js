@@ -5,18 +5,29 @@ import {
   Image,
 } from 'react-native';
 import GridButton from '../../components/Button/GridButton';
+
+import { connect } from 'react-redux';
+
+import { NavigationActions } from 'react-navigation';
+
 import styles from './Styles.js';
 import textStyles from '../../styles/TextStyles'
-import { connect } from 'react-redux';
 
 class HomeScreen extends Component {
   static navigationOptions = {
     header: null,
   };
 
+  onButtonPressed = (name) => {
+    const navigateActions = NavigationActions.navigate({
+      routeName: 'Profile',
+      params: {},
+      action: NavigationActions.navigate({ routeName: 'ProfileMain' })
+    });
+    this.props.navigation.dispatch(navigateActions);
+  }
   render() {
     const { navigate } = this.props.navigation;
-    console.log(this)
     return (
       <View style={styles.container}>
         <Image
@@ -41,14 +52,14 @@ class HomeScreen extends Component {
                   <GridButton 
                     iconName='ios-flag-outline' iconStyle={styles.iconStyle} 
                     iconTxtStyle={styles.iconTxtStyle} 
-                    btnStyle={styles.gridStyles} btnLabel='Pemetaan Lahan'
+                    buttonStyle={styles.gridStyles} buttonLabel='Pemetaan Lahan'
                   />
                 </View>
                 <View style={styles.gridWrapper}>
                   <GridButton 
                     iconName='ios-create-outline' iconStyle={styles.iconStyle} 
                     iconTxtStyle={styles.iconTxtStyle} 
-                    btnStyle={styles.gridStyles} btnLabel='Aktivitas'
+                    buttonStyle={styles.gridStyles} buttonLabel='Aktivitas'
                   />
                 </View>
               </View>
@@ -61,14 +72,14 @@ class HomeScreen extends Component {
                   <GridButton 
                     iconName='ios-calculator-outline' iconStyle={styles.iconStyle} 
                     iconTxtStyle={styles.iconTxtStyle} 
-                    btnStyle={styles.gridStyles} btnLabel='Pantau Harga'
+                    buttonStyle={styles.gridStyles} buttonLabel='Pantau Harga'
                   />
                 </View>
                 <View style={styles.gridWrapper}>
                   <GridButton 
                     iconName='ios-bulb-outline' iconStyle={styles.iconStyle} 
                     iconTxtStyle={styles.iconTxtStyle} 
-                    btnStyle={styles.gridStyles} btnLabel='Varietas'
+                    buttonStyle={styles.gridStyles} buttonLabel='Varietas'
                   />
                 </View>
               </View>
@@ -80,14 +91,15 @@ class HomeScreen extends Component {
                   <GridButton 
                     iconName='ios-person-outline' iconStyle={styles.iconStyle} 
                     iconTxtStyle={styles.iconTxtStyle} 
-                    btnStyle={styles.gridStyles} btnLabel='Profil'
+                    buttonStyle={styles.gridStyles} buttonLabel='Profil'
+                    buttonOnPress={() => this.onButtonPressed('Profil')} //No bind required. use arrow func instead
                   />
                 </View>
                 <View style={styles.gridWrapper}>
                   <GridButton 
                     iconName='ios-settings-outline' iconStyle={styles.iconStyle} 
                     iconTxtStyle={styles.iconTxtStyle} 
-                    btnStyle={styles.gridStyles} btnLabel='Pengaturan'
+                    buttonStyle={styles.gridStyles} buttonLabel='Pengaturan'
                   />
                 </View>
               </View>

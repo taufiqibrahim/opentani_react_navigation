@@ -6,15 +6,18 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as userStateActions from '../../../stateManager/actions/';
+import * as appStateActions from '../../../stateManager/actions/';
 import { NavigationActions } from 'react-navigation';
 import StandardButton from '../../../components/Button/StandardButton';
+
 import {
   COLOR_GREEN,
   COLOR_LIGHT,
+  COLOR_DEEP_ORANGE
 } from '../../../styles/ColorPalette';
-import styles from './Styles';
-import text_styles from '../../../styles/TextStyles';
+import TextStyles from '../../../styles/TextStyles';
+import { ButtonSS } from '../../../styles/ButtonStyles';
+import styles from '../styles/';
 
 class End extends Component {
   static navigationOptions = {
@@ -28,7 +31,7 @@ class End extends Component {
       action: NavigationActions.navigate({ routeName: 'Wall' })
     });
 
-    this.props.actions.onboardingFinished();
+    this.props.actions.appOnboardingFinished();
     this.props.navigation.dispatch(navigateActions);    
   }
 
@@ -37,29 +40,29 @@ class End extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.boxUpper}>
-          <Text style={[text_styles.XL, {color: COLOR_LIGHT}]}>
+          <Text style={[TextStyles.XL, {color: COLOR_LIGHT}]}>
             {this.props.onboard_title}
           </Text>
         </View>
         <View style={styles.boxLower}>
-          <Text style={text_styles.GUIDE}>
+          <Text style={[TextStyles.GUIDE, {color: COLOR_LIGHT}]}>
             {this.props.onboard_subtitle}
           </Text>
         </View>
+        <View style={styles.boxLower} />
+        <View style={styles.boxLower} />
         <View style={styles.boxLower}>
-          <View style={{flex:1, flexDirection: 'row'}}>
+          <View style={{flex: 1, flexDirection: 'row'}}>
             <View style={styles.buttonWrapper}>
               <StandardButton 
-                buttonStyle={[styles.buttonStyles, {borderColor: COLOR_LIGHT}]} 
-                buttonTextStyle={[styles.buttonTextStyle, {color: COLOR_LIGHT}]}
+                buttonStyle={[ButtonSS.buttonFillLarge, {backgroundColor: COLOR_LIGHT, borderColor: COLOR_LIGHT, }]} 
+                buttonTextStyle={this.props.buttonTextStyle}
                 buttonLabel={this.props.buttonLabel}
                 buttonOnPress={this.handle.bind(this)}
               />
             </View>
           </View>
         </View>
-        <View style={styles.boxLower} />
-        <View style={styles.boxLower} />
         <View style={styles.footer} />
       </View>
     )
@@ -68,7 +71,7 @@ class End extends Component {
 
 function mapStateToProps(state) {
   const data = {
-    isOnboard: state.userState.isOnboard,
+    isOnboard: state.appState.isOnboard,
   }
 
   return { data }
@@ -76,7 +79,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators( Object.assign( {}, userStateActions ), dispatch ),
+    actions: bindActionCreators( Object.assign( {}, appStateActions ), dispatch ),
   }
 }
 

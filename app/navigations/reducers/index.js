@@ -46,3 +46,19 @@ export default function nav(state, action) {
   const nextState = AppNavigator.router.getStateForAction(action, state);
   return nextState || state;
 }
+
+/*export default function nav(state, action) {
+  let nextState;
+
+  switch (action.type) {
+    case actionTypes.TO_WALL:
+      nextState = AppNavigator.router.getStateForAction(
+          NavigationActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate]
+          })
+        )
+  }
+  const nextState = AppNavigator.router.getStateForAction(action, state);
+  return nextState || state;
+}*/

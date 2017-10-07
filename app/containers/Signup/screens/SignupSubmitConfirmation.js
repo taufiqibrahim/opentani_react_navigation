@@ -7,6 +7,8 @@ import React, {Component} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ConfirmationForm from '../../../components/Form/ConfirmationForm';
 import StandardLoader from '../../../components/Loader/StandardLoader';
+import StandardButton from '../../../components/Button/StandardButton';
+import FadeInView from '../../../components/AnimatedView/FadeInView';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as signupActions from '../actions/';
@@ -14,14 +16,14 @@ import { NavigationActions } from 'react-navigation';
 
 // Styles imports
 import {
-  COLOR_LIGHT,
   COLOR_GREEN,
-  COLOR_TEXT_LIGHT,
-  COLOR_TEXT_DARKER,
-  COLOR_DARK_GREEN,
+  COLOR_LIGHT,
+  COLOR_DARK,
+  COLOR_DARK_GREEN
 } from '../../../styles/ColorPalette';
-import styles from './Styles';
 import TextStyles from '../../../styles/TextStyles';
+import { ButtonSS } from '../../../styles/ButtonStyles';
+import styles from '../styles/';
 
 class SignupSubmitConfirmationScreen extends Component {
   static navigationOptions = {
@@ -29,9 +31,9 @@ class SignupSubmitConfirmationScreen extends Component {
   };
 
   state={
-    buttonShow: false,
-    hideValidationMessage: true,
-    validationMessage: null,
+    isLoading: this.props.data.isLoading,
+    isModalVisible: this.props.data.isModalVisible,
+    buttonShow: true,
     data: {
       name: this.props.data.name,
       email: this.props.data.email,
@@ -42,41 +44,65 @@ class SignupSubmitConfirmationScreen extends Component {
     }
   }
 
+  renderButtons = () => {
+    if ( this.state.isLoading ) {
+      return ( <StandardLoader loaderColor={COLOR_GREEN} /> )
+    }
+    else {
+      return (
+        this.state.buttonShow
+        ?
+        (
+          <FadeInView 
+            style={{
+              flex: 1,
+              marginTop: 8,
+            }}
+          >
+            <StandardButton
+              buttonStyle={ButtonSS.buttonFillLarge}
+              buttonTextStyle={[TextStyles.H1, ButtonSS.buttonTextFillLarge]}
+              buttonLabel={uiText.signup.button.signup}
+              buttonOnPress={this.onButtonPressed.bind(this)}
+            />
+          </FadeInView>
+        )
+        : null
+      )
+    }
+  } 
+
   onButtonPressed = () => {
     let data = this.state.data;
     this.props.actions.signup(data);
   }
 
-  render(){
+  render() {
     return(
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: COLOR_LIGHT}]}>
         <ConfirmationForm
           subtitle={
-            <Text>
-              <Text style={{fontSize: 24}}>
-                {uiText.signup.question.submitConfirmation}
-              </Text>
+            <Text style={[TextStyles.H2, styles.subtitle]}>
+              {uiText.signup.question.submitConfirmation}
             </Text>
           }
-          subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
-          struct={[
-            {label: 'Nama', value: this.props.data.name}, 
-            {label: 'Email', value: this.props.data.email},
-            {label: 'Nomor telepon', value: this.props.data.phoneOnScreen},
-          ]}
-          structLabelTextStyle={[TextStyles.H3, {color: COLOR_DARK_GREEN, textAlign: 'left'}]}
-          structValueTextStyle={[TextStyles.H2, {color: COLOR_LIGHT, textAlign: 'left'}]}
-
-          buttonShow={this.state.buttonShow}
-          buttonLabel='Kirim'
-          buttonStyles={styles.buttonStyles}
-          buttonTextStyle={[TextStyles.H1, styles.buttonTextStyle]}
-          buttonOnPress={this.onButtonPressed.bind(this)}
-
+          struct={
+            (this.state.data.otpTransport === 'Email')
+            ?
+            [
+              {label: 'Nama', value: this.props.data.name}, 
+              {label: 'Email', value: this.props.data.email},
+            ]
+            :
+            [
+              {label: 'Nama', value: this.props.data.name}, 
+              {label: 'Nomor telepon', value: this.props.data.phoneOnScreen},
+            ]
+          }
+          structLabelTextStyle={[TextStyles.H3, {color: COLOR_DARK, textAlign: 'left'}]}
+          structValueTextStyle={[TextStyles.H2, {color: COLOR_DARK, textAlign: 'left'}]}
+          renderButtons={this.renderButtons()}
         />
-
-        {this.props.data.isLoading ? <StandardLoader loaderColor={COLOR_LIGHT}/> : null }
-
       </View>
     )
   }
@@ -84,13 +110,15 @@ class SignupSubmitConfirmationScreen extends Component {
 
 function mapStateToProps(state) {
   const data = {
+    isLoading: state.signup.isLoading,
+    isModalVisible: state.signup.isModalVisible,
+    modalMessage: state.signup.modalMessage,
     name: state.signup.name,
     email: state.signup.email,
     phone: state.signup.phone,
     phoneOnScreen: state.signup.phoneOnScreen,
     otpTransport: state.signup.otpTransport,
     userName: state.signup.userName,
-    isLoading: state.signup.isLoading,
   }
 
   return { data }

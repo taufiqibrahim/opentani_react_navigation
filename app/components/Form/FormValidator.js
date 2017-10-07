@@ -14,9 +14,11 @@ import TextStyles from '../../styles/TextStyles';
 export default class FormValidator extends Component {
   render() {
     return (
-
-      <Text style={[TextStyles.BODY, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}>
-        <Icon name={'md-warning'} size={24} />
+      <Text style={this.props.validationMessageStyle}>
+        <Icon 
+          name={this.props.validationIconName} 
+          size={this.props.validationIconSize}
+        />
         {' '}{this.props.validationMessage}
       </Text>
     )

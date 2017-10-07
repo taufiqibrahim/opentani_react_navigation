@@ -26,10 +26,18 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		marginBottom: 8,		
 	},
+	TITLESMALL: {
+		fontFamily: 'sans-serif-light',
+		fontSize: 16,
+		fontWeight: 'bold',
+		alignSelf: 'center',
+		textAlign: 'center',
+		marginBottom: 8,		
+	},
 	H1: {
 		fontFamily: 'sans-serif-light',
 		fontSize: 32,
-		fontWeight: 'bold',
+		
 		alignSelf: 'center',
 		textAlign: 'center',		
 	},
@@ -79,6 +87,14 @@ export default StyleSheet.create({
 		fontWeight: 'normal',
 		textAlign: 'center',
 	},
+	INPUTSMALL: {
+		flex: 1,
+		flexDirection: 'column',
+		fontFamily: 'sans-serif-light',
+		fontSize: 24,
+		fontWeight: 'normal',
+		textAlign: 'center',
+	},
 	ERROR: {
 		fontFamily: 'sans-serif',
 		fontSize: 16,
@@ -93,5 +109,11 @@ export default StyleSheet.create({
 		alignSelf: 'center',
 		textAlign: 'center',	
 	},
-	
+	SMALL: {
+		fontFamily: 'sans-serif-light',
+		fontSize: 16,
+		fontWeight: 'normal',
+		alignSelf: 'center',
+		textAlign: 'center',		
+	},
 })

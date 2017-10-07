@@ -8,7 +8,7 @@ import {
   COLOR_GREEN,
   COLOR_LIGHT,
 } from '../../../styles/ColorPalette';
-import styles from './Styles';
+import styles from '../styles/';
 import TextStyles from '../../../styles/TextStyles';
 
 export default class Stories extends Component {

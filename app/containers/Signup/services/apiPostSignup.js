@@ -4,19 +4,19 @@
  * if signup success, server will send OTP
  */
 
-import api from '../../../config/apiServerSetting.json';
+import config from '../../../config/config.json';
 
-const URL = api.dev.url;
-const TOKEN = api.dev.unsignedToken;
+const URL = config.ApiRootUrl;
+const UNSIGNED_TOKEN = config.unsignedToken;
 
 const apiPostSignup = (data) => {
 
-  return fetch(URL+'/v1/users/signup', {
+  return fetch(URL+'/users/signup', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Opentani-Access-Token': TOKEN,
+      'Opentani-Access-Token': UNSIGNED_TOKEN,
       'Opentani-OTP-Transport': data.otpTransport.toLowerCase(),
     },
     body: JSON.stringify({

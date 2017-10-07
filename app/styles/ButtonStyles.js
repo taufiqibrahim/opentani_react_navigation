@@ -1,91 +1,93 @@
-import {StyleSheet, Dimensions} from 'react-native';
+'use strict'
+
+/*
+ * Modal Styling Global
+ * Author: Taufiq Ibrahim
+ * Implemented by: Taufiq Ibrahim
+ * Date: 2017-09-17 23:11
+ */
+import {
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import {
   COLOR_GREEN,
-  COLOR_BACKGND,
+  COLOR_LIGHT,
+  COLOR_DARK,
+  COLOR_DARK_GREEN,
+  COLOR_DEEP_ORANGE
 } from './ColorPalette';
+import { PADDING, MARGIN } from './SpacingStyles';
 
-export default StyleSheet.create({
+const { width, height} = Dimensions.get('window');
+const borderWidth = 1;
 
-	button_fill_large: {
-		height: 48,
-		backgroundColor: COLOR_GREEN,
-		borderRadius: 8,
-		alignSelf: 'stretch',
-		alignItems: 'stretch',
-		justifyContent: 'center',
-		marginTop: 8,	
-		marginBottom: 8,
+export const ButtonSS = StyleSheet.create({
+
+	buttonNegative: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    marginRight: MARGIN.H/2,
 	},
-
-	text_button_fill_large: {
-		fontFamily: 'sans-serif',
-		fontSize: 24,
-		color: '#FCFFFC',
-		alignSelf: 'center',
-		alignItems: 'stretch',
-		textAlign: 'center',
-	},
-
-	button_line_large: {
-		height: 48,
-		borderColor: COLOR_GREEN,
-		borderWidth: 2,
-		borderRadius: 8,
-		alignSelf: 'stretch',
-		alignItems: 'stretch',
-		justifyContent: 'center',
-		marginTop: 8,	
-		marginBottom: 8,
-	},
-
-	text_button_line_large: {
-		fontFamily: 'sans-serif',
-		fontSize: 24,
+	buttonTextNegative: {
 		color: COLOR_GREEN,
-		alignSelf: 'center',
-		alignItems: 'stretch',
-		textAlign: 'center',
+	},
+	buttonPositive: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    marginLeft: MARGIN.H/2,
+	},
+	buttonTextPositive: {
+		color: COLOR_LIGHT,
 	},
 
-	button_fill_small: {
-		height: 36,
-		backgroundColor: COLOR_GREEN,
-		borderRadius: 8,
-		alignSelf: 'stretch',
-		alignItems: 'stretch',
-		justifyContent: 'center',
-		marginTop: 8,	
-		marginBottom: 8,
+  buttonFillLarge: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    backgroundColor: COLOR_GREEN,
+    borderColor: COLOR_GREEN,
+    height: height/10,
+    borderRadius: height/100,
+    borderWidth: 1,
+  },
+	buttonTextFillLarge: {
+		color: COLOR_LIGHT,
 	},
 
-	text_button_fill_small: {
-		fontFamily: 'sans-serif',
-		fontSize: 20,
-		color: '#FCFFFC',
-		alignSelf: 'center',
-		alignItems: 'stretch',
-		textAlign: 'center',
+	buttonLineLarge: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    borderColor: COLOR_GREEN,
+    height: height/10,
+    borderRadius: height/100,
+    borderWidth: 1,
 	},
 
-	button_line_small: {
-		height: 36,
-		borderColor: COLOR_GREEN,
-		borderWidth: 2,
-		borderRadius: 8,
-		alignSelf: 'stretch',
-		alignItems: 'stretch',
-		justifyContent: 'center',
-		marginTop: 8,	
-		marginBottom: 8,
-	},
-
-	text_button_line_small: {
-		fontFamily: 'sans-serif',
-		fontSize: 20,
+	buttonTextLineLarge: {
 		color: COLOR_GREEN,
-		alignSelf: 'center',
-		alignItems: 'stretch',
-		textAlign: 'center',
+	},
+
+	buttonLineSmall: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    borderColor: COLOR_GREEN,
+    height: height/20,
+    borderRadius: height/100,
+    borderWidth: 1,
+	},
+
+	buttonTextLineSmall: {
+		color: COLOR_GREEN,
 	},
 	
 })

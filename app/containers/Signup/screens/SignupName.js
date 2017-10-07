@@ -8,8 +8,11 @@ import {
   Text,
   StyleSheet,
   Keyboard,
+  View,
 } from 'react-native';
 import Typeform from '../../../components/Form/Typeform';
+import StandardButton from '../../../components/Button/StandardButton';
+import FadeInView from '../../../components/AnimatedView/FadeInView';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as signupActions from '../actions/';
@@ -17,14 +20,13 @@ import { NavigationActions } from 'react-navigation';
 
 // Styles imports
 import {
-  COLOR_LIGHT,
   COLOR_GREEN,
-  COLOR_TEXT_LIGHT,
-  COLOR_TEXT_DARKER,
-  COLOR_PLACEHOLDER_ON_GREEN,
+  COLOR_LIGHT,
+  COLOR_DEEP_ORANGE
 } from '../../../styles/ColorPalette';
 import TextStyles from '../../../styles/TextStyles';
-import styles from './Styles';
+import { ButtonSS } from '../../../styles/ButtonStyles';
+import styles from '../styles/';
 
 class SignupNameScreen extends Component {
   static navigationOptions = {
@@ -71,9 +73,31 @@ class SignupNameScreen extends Component {
   }
 
   onTouchableWithoutFeedbackPress = (text) => {
-    console.log('onTouchableWithoutFeedbackPress');
     Keyboard.dismiss();
     this.onSubmitEditingHandler(text);
+  }
+
+  renderButtons = () => {
+    return (
+      this.state.buttonShow
+      ?
+      (
+        <FadeInView 
+          style={{
+            flex: 1,
+            marginTop: 8,
+          }}
+        >
+          <StandardButton
+            buttonStyle={ButtonSS.buttonFillLarge}
+            buttonTextStyle={[TextStyles.H1, ButtonSS.buttonTextFillLarge]}
+            buttonLabel={uiText.signup.button.next}
+            buttonOnPress={this.onButtonPressed.bind(this)}
+          />
+        </FadeInView>
+      )
+      : null
+    )
   }
 
   onButtonPressed () {
@@ -87,27 +111,34 @@ class SignupNameScreen extends Component {
 
 	render(){
 		return(
-      <Typeform
-        inputAutoFocus
-        subtitle={uiText.signup.question.personName}
-        subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
-        inputPlaceholder={uiText.signup.placeholder.personName}
-        inputPlaceholderColor= {COLOR_PLACEHOLDER_ON_GREEN}
-        inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
-        inputKeyboardType='email-address'
-        inputAutoCapitalize='words'
-        inputMaxLength={254}
-        onChangeTextHandler={this.onChangeTextHandler.bind(this)}
-        onSubmitEditingHandler={this.onSubmitEditingHandler.bind(this)}
-        onTouchableWithoutFeedbackPress={this.onTouchableWithoutFeedbackPress.bind(this)}
-        hideValidationMessage={this.state.hideValidationMessage}
-        validationMessage={this.state.validationMessage}
-        buttonShow={this.state.buttonShow}
-        buttonLabel='Lanjut'
-        buttonStyles={styles.buttonStyles}
-        buttonTextStyle={[TextStyles.H1, styles.buttonTextStyle]}
-        buttonOnPress={this.onButtonPressed.bind(this)}
-      />
+      <View style={styles.container}>
+        <Typeform
+          title={<Text style={[TextStyles.TITLESMALL, styles.title]}>{uiText.signup.title.name}</Text>}
+            subtitle={
+              <Text style={[TextStyles.H2, styles.subtitle]}>
+                {uiText.signup.question.personName}
+              </Text>
+            }
+          inputAutoFocus
+          inputPlaceholder={uiText.login.placeholder.personName}
+          inputPlaceholderColor= {styles.textInputPlaceholder}
+          inputTextStyle={[TextStyles.INPUT, styles.textInput]}
+
+          inputAutoCapitalize='words'
+          inputMaxLength={254}
+          onChangeTextHandler={this.onChangeTextHandler.bind(this)}
+          onSubmitEditingHandler={this.onSubmitEditingHandler.bind(this)}
+          onTouchableWithoutFeedbackPress={this.onTouchableWithoutFeedbackPress.bind(this)}
+          
+          hideValidationMessage={this.state.hideValidationMessage}
+          validationMessage={this.state.validationMessage}
+          validationMessageStyle={[TextStyles.BODY, styles.validationMessage]}
+          validationIconName={'md-warning'}
+          validationIconSize={24}
+
+          renderButtons={this.renderButtons()}
+        />
+      </View>
     )
 	}
 }

@@ -4,11 +4,11 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import styles from './styles';
+import styles from '../styles';
 import TextStyles from '../../../styles/TextStyles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as userStateActions from '../../../stateManager/actions/';
+import * as appStateActions from '../../../stateManager/actions/';
 import { NavigationActions } from 'react-navigation';
 
 class BootScreen extends Component {
@@ -29,7 +29,21 @@ class BootScreen extends Component {
      * initial routing logic is implemented here
      */
       if ( data.isOnboard ) {
-        actions.navigateAfterBoot({ routeStack: 'Wall', routeName: 'Wall' });
+        if ( data.isSignedUp ) {
+          actions.navigateAfterBoot({ routeStack: 'SignupVerification', routeName: 'SignupOTP' });
+        }
+        else if ( data.isSignedUpAndVerified ) {
+          actions.navigateAfterBoot({ routeStack: 'Home', routeName: 'Home' });
+        }
+        else if ( data.isLoggedIn ) {
+          actions.navigateAfterBoot({ routeStack: 'LoginVerification', routeName: 'LoginOTP' });
+        }
+        else if ( data.isLoggedInAndVerified ) {
+          actions.navigateAfterBoot({ routeStack: 'Home', routeName: 'Home' });
+        }
+        else {
+          actions.navigateAfterBoot({ routeStack: 'Wall', routeName: 'Wall' });
+        }
       }
       else actions.navigateAfterBoot({ routeStack: 'Onboarding', routeName: 'Onboarding' });
   }
@@ -39,7 +53,7 @@ class BootScreen extends Component {
     const actions = this.props.actions;
     const state = this.state;
 
-    if ( state.rehydrated !==  data.rehydrated && data.rehydrated ) {
+    if ( (state.rehydrated !==  data.rehydrated) && data.rehydrated ) {
       this.setState({rehydrated: this.props.data.rehydrated});
       this.bootLoader();
     }
@@ -54,17 +68,14 @@ class BootScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const data = {
-    rehydrated: state.userState.rehydrated,
-    isOnboard: state.userState.isOnboard,
-  }
+  const data = state.appState;
 
   return { data }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators( Object.assign( {}, userStateActions ), dispatch ),
+    actions: bindActionCreators( Object.assign( {}, appStateActions ), dispatch ),
   }
 }
 

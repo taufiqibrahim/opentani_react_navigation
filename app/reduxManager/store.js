@@ -40,7 +40,7 @@ export default function getStore() {
 
   // Begin persisting the store
   persistStore(store, {
-    whitelist: ['userState'],
+    whitelist: ['appState'],
     storage: AsyncStorage,
   })
 

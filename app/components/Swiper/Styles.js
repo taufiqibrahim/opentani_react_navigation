@@ -46,8 +46,8 @@ export default StyleSheet.create({
   onboardingControlInner: {
     flex: 1,
     backgroundColor: 'transparent',
-    //borderWidth: 2,
-    //borderColor: 'red',
+    borderWidth: 2,
+    borderColor: 'transparent',
   },
   onboardingButtonWrapper: {
     flex: 1,
@@ -56,16 +56,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonStyles: {
+  buttonWrapper: {
     flex: 1,
-    flexDirection: 'row',
-    height: 36,
-    backgroundColor: 'transparent',
-    borderRadius: 18,
-    borderWidth: 2,
-    borderColor: 'black',
+    alignItems: 'stretch',
     alignSelf: 'stretch',
-    alignItems: 'center',
     justifyContent: 'center',
   },
   buttonTextStyle: {

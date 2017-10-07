@@ -16,6 +16,7 @@ import {
   COLOR_LIGHT,
   COLOR_TEXT_LIGHT,
 } from '../../styles/ColorPalette';
+import { PADDING, MARGIN } from '../../styles/SpacingStyles';
 
 export default class ConfirmationForm extends Component {
 
@@ -23,9 +24,9 @@ export default class ConfirmationForm extends Component {
     const struct = this.props.struct;
         /*const struct=[
           {label: 'Nama', value: 'Omar'}, 
-          {label: 'Tole', value: 'omar@google.com'},
-          {label: 'Nomor telepon', value: '085287'},
-        ]*/
+          {label: 'Email', value: 'omar@google.com'},
+          //{label: 'Nomor telepon', value: '085287'},
+        ];*/
     return struct.map((k, i) => {
       return (
         <View 
@@ -33,37 +34,42 @@ export default class ConfirmationForm extends Component {
           style={{
             flex: 1, 
             flexDirection: 'column', 
-            alignItems: 'flex-start', 
+            alignItems: 'stretch', 
             justifyContent: 'flex-start',
             backgroundColor: 'transparent',
           }}
         >
           <View 
             style={{
-              flex: 0.5, 
-              alignItems: 'flex-end'
-            }}
-          >
-            <Text 
-              style={this.props.structLabelTextStyle}
-            >
-              {k.label}
-            </Text>
-          </View>
-          <View 
-            style={{
-              flex: 1, 
-              flexDirection: 'row',
+              flex: 0.5,
+              flexDirection: 'column',
+              backgroundColor: 'transparent',
               alignItems: 'flex-start', 
               alignSelf: 'stretch',
-              marginBottom: 8,
+              justifyContent: 'flex-start',
+            }}
+          >
+            <View style={{flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-end'}}>
+              <Text style={this.props.structLabelTextStyle}>{k.label}</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              flex: 1, 
+              flexDirection: 'column',
+              backgroundColor: 'transparent',
+              alignItems: 'flex-start', 
+              alignSelf: 'stretch',
+              marginBottom: 40,
               borderBottomColor: COLOR_DARK_GREEN, 
               borderBottomWidth: 1,
             }}
           >
-            <Text style={this.props.structValueTextStyle}>
-              {k.value}
-            </Text>
+            <View style={{flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-end', marginBottom: 8}}>
+              <Text style={this.props.structValueTextStyle}>
+                {k.value}
+              </Text>
+            </View>
           </View>
         </View>
       )
@@ -81,18 +87,13 @@ export default class ConfirmationForm extends Component {
           </Text>
         </View>
         <View style={styles.formWrapper}>
-          <View style={{flex:1, flexDirection: 'column', alignItems: 'stretch'}}>
+          <View style={{flex:1, flexDirection: 'column', alignItems: 'stretch',}}>
             {this.renderStruct()}
           </View>
         </View>
         <View style={styles.boxLower}>
           <View style={styles.buttonWrapper}>
-            <StandardButton 
-              buttonStyle={this.props.buttonStyles} 
-              buttonTextStyle={this.props.buttonTextStyle} 
-              buttonLabel={this.props.buttonLabel}
-              buttonOnPress={this.props.buttonOnPress}
-            /> 
+            {this.props.renderButtons}
           </View>
         </View>
       </ScrollView>
@@ -103,7 +104,7 @@ export default class ConfirmationForm extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: COLOR_GREEN,
+    backgroundColor: 'transparent',
     alignItems: 'stretch',
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -113,9 +114,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     alignItems: 'flex-start',
     alignSelf: 'stretch',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 32,
-    marginBottom: 24,
+    justifyContent: 'center',
+    paddingHorizontal: PADDING.H,
   },
   formWrapper: {
     flex: 4,
@@ -124,7 +124,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'flex-start',
-    paddingHorizontal: 32,
+    paddingTop: PADDING.T,
+    paddingHorizontal: PADDING.H,
   },
   boxLower: {
     flex: 3,
@@ -132,6 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'center',
+    paddingHorizontal: PADDING.H,
   },
   footer: {
     flex: 1,
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    paddingBottom: 32,
+    paddingHorizontal: PADDING.H,
   },
   buttonWrapper: {
     backgroundColor: 'transparent',
@@ -147,6 +149,5 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     alignSelf: 'stretch',
     justifyContent: 'center',
-    paddingHorizontal: 72,
   },
 })

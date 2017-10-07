@@ -20,9 +20,53 @@
     },
   },
   "signup": {
+    "title": {
+      "title": "Daftar",
+      "name": "Nama Pengguna",
+      "chooseComm": "Jalur Komunikasi",
+      "email": "Email",
+      "phone": "Nomor Telepon",
+      "otp": "Verifikasi Kode"
+    },
     "question": {
       "personName": "Siapa nama Anda?",
       "submitConfirmation": "Anda setuju untuk mendaftar dengan data berikut?",
+      "otp": "Aktivasi Akun",
+      "otpTransportQuestion": "Anda ingin menerima kode aktivasi melalui?",
+      "activationInfo": "Kode aktivasi telah dikirim melalui",
+      "to": "ke",
+      "from": "dari",
+      "activationCommand": "Masukkan di sini."
+    },
+    "placeholder": {
+      "personName": "Omar Bakrie",
+      "email": "omar.bakrie@op.id",
+      "phone": "0811-858-6273",
+      "otp": "Kode Aktivasi",
+    },
+    "button": {
+      "next": "Lanjut",
+      "signup": "Daftar",
+      "otpVerify": "Verifikasi",
+      "noOtpReceived": "Tidak menerima kode aktivasi?"
+    },
+    "modal": {
+      "resendOtpSuccess": "Kode aktivasi sudah dikirimkan ulang",
+      "failConnectToServer": "Gagal menyambungkan ke server"
+    }
+  },
+  "login": {
+    "title": {
+      "chooseComm": "Masuk Aplikasi",
+      "email": "Email",
+      "phone": "Nomor Telepon",
+      "otp": "Verifikasi Kode"
+    },
+    "question": {
+      "personName": "Siapa nama Anda?",
+      "email": "Silakan memasukkan email",
+      "phone": "Silakan memasukkan email",
+      "submitConfirmation": "Anda setuju untuk masuk dengan data berikut?",
       "otp": "Aktivasi Akun",
       "otpTransportQuestion": "Anda ingin menerima kode aktivasi melalui?",
       "activationInfo": "Kode aktivasi telah dikirim melalui ",
@@ -36,6 +80,9 @@
       "phone": "0811-858-6273",
       "otp": "*  *  *  *",
     },
+    "button": {
+      "next": "Lanjut",
+    }
   },
   "validationErrorMessage": {
     "networkError": "",
@@ -44,9 +91,11 @@
     "emailInvalid": "Format email salah",
     "emailIsEmpty": "Email tidak boleh kosong",
     "emailAlreadyTaken": "Email sudah ada yang menggunakan",
+    "emailNotExist": "Email tidak ditemukan",
     "phoneInvalid": "Jumlah nomor kurang dari 10",
     "phoneIsEmpty": "Nomor telepon tidak boleh kosong",
     "phoneAlreadyTaken": "Nomor telepon sudah ada yang menggunakan",
+    "phoneNotExist": "Nomor telepon tidak ditemukan",
     "otpInvalid": "Kode aktivasi harus 4 angka",
     "otpIsEmpty": "Kode aktivasi belum dimasukkan",
   },

@@ -10,24 +10,31 @@ import {
   Keyboard,
   View,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import Typeform from '../../../components/Form/Typeform';
 import StandardLoader from '../../../components/Loader/StandardLoader';
-import { validatePhone } from '../../../utilities/inputValidator';
+import StandardButton from '../../../components/Button/StandardButton';
+import FadeInView from '../../../components/AnimatedView/FadeInView';
+import ModalView from '../../../components/Modal/';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as signupActions from '../actions/';
 import { NavigationActions } from 'react-navigation';
 
+import { validatePhone } from '../../../utilities/signup';
+
 // Styles imports
 import {
   COLOR_LIGHT,
   COLOR_GREEN,
-  COLOR_TEXT_LIGHT,
-  COLOR_TEXT_DARKER,
   COLOR_DARK_GREEN,
 } from '../../../styles/ColorPalette';
 import TextStyles from '../../../styles/TextStyles';
-import styles from './Styles';
+import { ButtonSS } from '../../../styles/ButtonStyles';
+import { MS, ModalSS } from '../../../styles/ModalStyles';
+import styles from '../styles/';
 
 class SignupPhoneScreen extends Component {
   static navigationOptions = {
@@ -35,7 +42,7 @@ class SignupPhoneScreen extends Component {
   };
 
   state={
-    isLoading: false,
+    isLoading: this.props.data.isLoading,
     isModalVisible: false,
     buttonShow: false,
     hideValidationMessage: true,
@@ -51,21 +58,19 @@ class SignupPhoneScreen extends Component {
     },
   }
 
-  _showModal = () => this.setState({isModalVisible: true})
-  _hideModal = () => this.setState({isModalVisible: false})
+  _showModal = (message) => this.props.actions.signupModalShow(message)
+  _hideModal = () => this.props.actions.signupModalHide()
 
   onSubmitEditingHandler = async (text) => {
-    this._hideModal();
-    this.setState({isLoading: true});
+    this.props.actions.signupLoaderShow();
     let res = await validatePhone(this.state.data.phone);
-    this.setState({isLoading: false});
+    this.props.actions.signupLoaderHide();
     if (res.isExists !== undefined) {
       let t = (res.validationErrorMessage == null) ? true : false;
-      //this._hideModal();
       this.setState({validationMessage: res.validationErrorMessage});
       this.setState({hideValidationMessage: t, buttonShow: t})
     } else {
-      this._showModal();
+      this._showModal({message: uiText.signup.modal.failConnectToServer});
     }
   }
   
@@ -99,6 +104,44 @@ class SignupPhoneScreen extends Component {
     return phone;
   }
 
+  renderIcon (iconData) {
+    return(
+      <Icon 
+        name={iconData.iconName} 
+        size={MS.ICON_SIZE}
+        style={MS.ICON_STYLE}
+      />
+    )
+  }
+
+  renderButtons = () => {
+    if ( this.state.isLoading ) {
+      return ( <StandardLoader loaderColor={COLOR_GREEN} /> )
+    }
+    else {
+      return (
+        this.state.buttonShow
+        ?
+        (
+          <FadeInView 
+            style={{
+              flex: 1,
+              marginTop: 8,
+            }}
+          >
+            <StandardButton
+              buttonStyle={ButtonSS.buttonFillLarge}
+              buttonTextStyle={[TextStyles.H1, ButtonSS.buttonTextFillLarge]}
+              buttonLabel={uiText.signup.button.next}
+              buttonOnPress={this.onButtonPressed.bind(this)}
+            />
+          </FadeInView>
+        )
+        : null
+      )
+    }
+  }  
+
   onButtonPressed () {
     const navigateActions = NavigationActions.navigate({
       routeName: 'Signup',
@@ -109,49 +152,65 @@ class SignupPhoneScreen extends Component {
   }
 
   render(){
+    let iconData = {
+      iconName: 'ios-warning-outline'
+    }
+    
     return(
       <View style={styles.container}>
         <Typeform
+          title={<Text style={[TextStyles.TITLESMALL, styles.title]}>{uiText.signup.title.phone}</Text>}
           subtitle={
-            <Text>
+            <Text style={[TextStyles.H2, styles.subtitle]}>
               {'Baik, '}
-              <Text style={{fontWeight: 'bold'}}>
+              <Text style={styles.highlighted}>
                 {this.props.data.name}
               </Text>
-              <Text style={{fontSize: 24}}>
+              <Text>
                 {'\n'}Silakan mengisi nomor telepon Anda
               </Text>
             </Text>
           }
           inputAutoFocus
-          subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
           inputPlaceholder={uiText.signup.placeholder.phone}
-          inputPlaceholderColor= {COLOR_DARK_GREEN}
-          inputTextStyle={[TextStyles.INPUT, {color: COLOR_TEXT_LIGHT, textAlign: 'left', fontSize: 36, fontWeight: 'bold'}]}
+          inputPlaceholderColor= {styles.textInputPlaceholder}
+          inputTextStyle={[TextStyles.INPUTSMALL, styles.textInput]}
           inputKeyboardType='phone-pad'
           inputMaxLength={14}
           maskValue={this.props.data.phoneOnScreen}
           onChangeTextHandler={this.onChangeTextHandler.bind(this)}
           onSubmitEditingHandler={this.onSubmitEditingHandler.bind(this)}
           onTouchableWithoutFeedbackPress={this.onTouchableWithoutFeedbackPress.bind(this)}
+          
           hideValidationMessage={this.state.hideValidationMessage}
           validationMessage={this.state.validationMessage}
-          
-          buttonShow={this.state.buttonShow}
-          buttonLabel='Lanjut'
-          buttonStyles={styles.buttonStyles}
-          buttonTextStyle={[TextStyles.H1, styles.buttonTextStyle]}
-          buttonOnPress={this.onButtonPressed.bind(this)}
-          
-          modalVisible={this.state.isModalVisible}
-          modalMessage={'Gagal menyambungkan ke server'}
-          modalBackButtonPressed={this._hideModal.bind(this)}
-          modalButtonNegativeOnPress={this._hideModal.bind(this)}
-          modalButtonPositiveOnPress={this.onSubmitEditingHandler.bind(this)}
+          validationMessageStyle={[TextStyles.BODY, styles.validationMessage]}
+          validationIconName={'md-warning'}
+          validationIconSize={24}
+
+          renderButtons={this.renderButtons()}
         />
-        
-        {this.state.isLoading ? <StandardLoader loaderColor={COLOR_LIGHT}/> : null }
-      
+
+        <ModalView
+          animationIn={MS.ANIMATION_IN}
+          animationInTiming={MS.ANIMATION_IN_TIMING}
+          animationOutTiming={MS.ANIMATION_OUT_TIMING}
+          isVisible={this.props.data.isModalVisible}
+          hideOnBack={this.props.modalHideOnBack}
+          onBackButtonPress={this.props.modalBackButtonPressed}
+
+          modalSingleButton={true}
+          modalIconItem={this.renderIcon(iconData)}
+          modalMessage={this.props.data.modalMessage}
+          modalTopAreaStyle={ModalSS.modalTopAreaStyle}
+          modalBottomAreaStyle={ModalSS.modalBottomAreaStyle}
+
+          modalButtonStyle={ModalSS.modalButtonStyle}
+          modalButtonTextStyle={[TextStyles.H2, ModalSS.modalButtonTextStyle]}
+          modalButtonLabel={'OK'}
+          modalButtonOnPress={this._hideModal}
+        />
+
       </View>
     )
   }
@@ -159,6 +218,9 @@ class SignupPhoneScreen extends Component {
 
 function mapStateToProps(state) {
   const data = {
+    isLoading: state.signup.isLoading,
+    isModalVisible: state.signup.isModalVisible,
+    modalMessage: state.signup.modalMessage,
     name: state.signup.name,
     email: state.signup.email,
     phone: state.signup.phone,

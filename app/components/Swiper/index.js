@@ -239,16 +239,16 @@ export default class SwiperComponent extends Component {
         <View style={styles.onboardingControlInner}>
           <View style={styles.onboardingButtonWrapper}>
             {lastScreen
-              ? (
-                  <View />
-                )
+              ? null
               : (
-                  <StandardButton
-                    buttonStyle={[styles.buttonStyle, this.props.swiperLeftButtonStyle]}
-                    buttonTextStyle={[TextStyles.BODY, styles.buttonTextStyle, this.props.swiperLeftButtonTextStyle]}
-                    buttonLabel={'LEWATI'}
-                    buttonOnPress={this.onSkipBtn}
-                  />
+                  <View style={styles.buttonWrapper}>
+                    <StandardButton
+                      buttonStyle={this.props.swiperLeftButtonStyle}
+                      buttonTextStyle={[TextStyles.BODY, styles.buttonTextStyle, this.props.swiperLeftButtonTextStyle]}
+                      buttonLabel={this.props.swiperLeftButtonLabel}
+                      buttonOnPress={this.onSkipBtn}
+                    />
+                  </View>
                 )
             }
           </View>
@@ -258,16 +258,16 @@ export default class SwiperComponent extends Component {
         <View style={styles.onboardingControlInner}>
           <View style={styles.onboardingButtonWrapper}>
             {lastScreen
-              ? (
-                  <View />
-                )
+              ? null
               : (
-                  <StandardButton
-                    buttonStyle={[styles.buttonStyle, this.props.swiperRightButtonStyle]}
-                    buttonTextStyle={[TextStyles.BODY, styles.buttonTextStyle, this.props.swiperRightButtonTextStyle]}
-                    buttonLabel={'BERIKUTNYA'}
-                    buttonOnPress={this.onNextBtn}
-                  />
+                  <View style={styles.buttonWrapper}>
+                    <StandardButton
+                      buttonStyle={this.props.swiperRightButtonStyle}
+                      buttonTextStyle={[TextStyles.BODY, styles.buttonTextStyle, this.props.swiperRightButtonTextStyle]}
+                      buttonLabel={this.props.swiperRightButtonLabel}
+                      buttonOnPress={this.onNextBtn}
+                    />
+                  </View>
                 )
             }
           </View>

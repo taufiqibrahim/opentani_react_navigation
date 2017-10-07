@@ -11,11 +11,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    position: 'absolute',
+    /*position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    height: height,
+    height: height,*/
   },
   loader: {
     flex: 4,

@@ -20,6 +20,50 @@ import TextStyles from '../../styles/TextStyles';
 import styles from './Styles';
 
 export default class DefaultModalView extends Component {
+
+  renderButton () {
+    if (this.props.modalSingleButton) {
+      return (
+        <View style={{
+          flex: 1, 
+          flexDirection: 'row', 
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <StandardButton 
+            buttonStyle={this.props.modalButtonStyle}
+            buttonTextStyle={this.props.modalButtonTextStyle}
+            buttonLabel={this.props.modalButtonLabel}
+            buttonOnPress={this.props.modalButtonOnPress}
+          />
+        </View> 
+      )         
+    } 
+    else {
+      return (
+        <View style={{
+          flex: 1, 
+          flexDirection: 'row', 
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <StandardButton 
+            buttonStyle={this.props.modalButtonNegativeStyle}
+            buttonTextStyle={this.props.modalButtonNegativeTextStyle}
+            buttonLabel={this.props.modalButtonNegativeLabel}
+            buttonOnPress={this.props.modalButtonNegativeOnPress}
+          />
+          <StandardButton 
+            buttonStyle={this.props.modalButtonPositiveStyle}
+            buttonTextStyle={this.props.modalButtonPositiveTextStyle}
+            buttonLabel={this.props.modalButtonPositiveLabel}
+            buttonOnPress={this.props.modalButtonPositiveOnPress}
+          />
+        </View>     
+      )
+    }
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -36,7 +80,7 @@ export default class DefaultModalView extends Component {
             <View style={{flex: 1, alignItems: 'center'}}>
               <View>
                 <Text>
-                  <Icon name={'signal-cellular-off'} size={64} />
+                  {this.props.iconItem}
                 </Text>
               </View>
               <View>
@@ -55,25 +99,7 @@ export default class DefaultModalView extends Component {
               paddingVertical: 8,
             }}
           >
-            <View style={{
-              flex: 1, 
-              flexDirection: 'row', 
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              <StandardButton 
-                buttonStyle={styles.buttonNegative}
-                buttonTextStyle={[TextStyles.BODY, styles.buttonNegativeTextStyle]}
-                buttonLabel={'Daftar nanti saja'}
-                buttonOnPress={this.props.modalButtonNegativeOnPress}
-              />
-              <StandardButton 
-                buttonStyle={styles.buttonPositive} 
-                butonTextStyle={[TextStyles.BODY, styles.buttonPositiveTextStyle]}
-                buttonLabel={'Coba lagi'}
-                buttonOnPress={this.props.modalButtonPositiveOnPress}
-              />
-            </View>
+            {this.renderButton(this.props.modalSingleButton)}
           </View>
         </View>
         <View style={styles.whiteSpace}></View>

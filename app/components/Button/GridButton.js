@@ -9,12 +9,12 @@ export default class GridButton extends Component {
   render() {
     return (
       <TouchableHighlight
-        onPress={this.props.btnOnPress}
-        style={this.props.btnStyle}
+        onPress={this.props.buttonOnPress}
+        style={this.props.buttonStyle}
       >
         <View>
           <Icon name={this.props.iconName} style={this.props.iconStyle} />
-          <Text style={this.props.iconTxtStyle}>{this.props.btnLabel}</Text>
+          <Text style={this.props.iconTxtStyle}>{this.props.buttonLabel}</Text>
         </View>
       </TouchableHighlight>
     ) 

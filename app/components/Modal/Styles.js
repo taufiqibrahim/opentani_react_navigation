@@ -7,6 +7,9 @@ import {
   COLOR_LIGHT,
   COLOR_GREY,
 } from '../../styles/ColorPalette';
+import {
+  MARGIN,
+} from '../../styles/SpacingStyles';
 import TextStyles from '../../styles/TextStyles';
 
 const { width, height} = Dimensions.get('window');
@@ -14,7 +17,6 @@ const buttonMargin = 8;
 const borderWidth = 2;
 
 export default StyleSheet.create({
-  // Main container
   container: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -27,36 +29,42 @@ export default StyleSheet.create({
     flex: 2,
     backgroundColor: COLOR_LIGHT,
   },
-  buttonPositive: {
-    flex: 1,
-    backgroundColor: COLOR_LIGHT,
-    borderRadius: height/100,
-    borderWidth: borderWidth,
-    borderColor: COLOR_LIGHT,
-    alignSelf: 'stretch',
+  buttonWrapper: {
+    flex: 2,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
-    //marginRight: buttonMargin,
+    alignSelf: 'center',
+  },
+  buttonPositive: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLOR_LIGHT,
+    height: height/16,
+    borderRadius: height/100,
+    borderWidth: borderWidth,
+    borderColor: 'transparent',
+    marginHorizontal: MARGIN.H,
   },
   buttonNegative: {
     flex: 1,
-    backgroundColor: 'transparent',
-    borderRadius: height/100,
-    borderWidth: borderWidth,
-    borderColor: COLOR_LIGHT,
-    alignSelf: 'stretch',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: buttonMargin,
+    backgroundColor: 'transparent',
+    height: height/16,
+    borderRadius: height/100,
+    borderWidth: borderWidth,
+    borderColor: 'transparent',
+    marginHorizontal: MARGIN.H,
   },
   buttonPositiveTextStyle: {
-    fontFamily: 'sans-serif',
     color: COLOR_GREEN,
-    paddingHorizontal: 16,
   },
   buttonNegativeTextStyle: {
-    fontFamily: 'sans-serif',
     color: COLOR_LIGHT,
-    paddingHorizontal: 16,
   },
 });

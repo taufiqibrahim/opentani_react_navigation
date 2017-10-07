@@ -1,10 +1,11 @@
 import uiText from '../config/uiLanguage.json';
+import api from '../config/apiServerSetting.json';
 
-const URL = 'http://10.0.2.2:3000';
-const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJnaWxhbHVuZHJvaW5pamFuZ2Fuc2FtcGVib2NvciIsImlhdCI6MTQ5NjYwMTYxMCwiZXhwIjozMzA1NDIwMTYxMH0.L9k2b9a5SNqvsUYld7FPk0HcXxhCKuoB69sXY2cpg78';
+const URL = api.dev.url;
+const TOKEN = api.dev.unsignedToken;
 
 const apiCheckExist = (method, data) => {
-  return fetch('http://10.0.2.2:3000/v1/users/exists', {
+  return fetch(URL+'/v1/users/exists', {
     method: 'GET',
     headers: {
       'Accept': 'application/json',

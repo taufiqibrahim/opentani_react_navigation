@@ -4,8 +4,10 @@ import uiText from '../../../config/uiLanguage.json';
 
 // Libraries imports
 import React, {Component} from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
+
 import Optionform from '../../../components/Form/Optionform';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as signupActions from '../actions/';
@@ -15,11 +17,10 @@ import { NavigationActions } from 'react-navigation';
 import {
   COLOR_LIGHT,
   COLOR_GREEN,
-  COLOR_TEXT_LIGHT,
-  COLOR_TEXT_DARKER,
-  COLOR_PLACEHOLDER_ON_GREEN,
+  COLOR_DARK_GREEN,
 } from '../../../styles/ColorPalette';
 import TextStyles from '../../../styles/TextStyles';
+import styles from '../styles/';
 
 class SignupChooseCommScreen extends Component {
   static navigationOptions = {
@@ -36,6 +37,7 @@ class SignupChooseCommScreen extends Component {
       phone: this.props.data.phone,
       phoneOnScreen: this.props.data.phoneOnScreen,
       otpTransport: this.props.data.otpTransport,
+      userName: this.props.data.userName,
     }
   }
 
@@ -53,34 +55,36 @@ class SignupChooseCommScreen extends Component {
 
   render(){
     return(
-      <Optionform
-        subtitle={
-          <Text>
-            {'Halo, '}
-            <Text style={{fontWeight: 'bold'}}>
-              {this.props.data.name}
+      <View style={[styles.container, {backgroundColor: COLOR_LIGHT}]}>
+        <Optionform
+          title={<Text style={[TextStyles.TITLESMALL, styles.title]}>{uiText.signup.title.chooseComm}</Text>}
+          subtitle={
+            <Text style={[TextStyles.H2, styles.subtitle]}>
+              {'Halo, '}
+              <Text style={styles.highlighted}>
+                {this.props.data.name}
+              </Text>
+              <Text>
+                {'\n'}
+              </Text>
+              <Text>
+                {'\n'}{uiText.signup.question.otpTransportQuestion}
+              </Text>
             </Text>
-            <Text style={{fontSize: 24}}>
-              {'\n'}
-            </Text>
-            <Text style={{fontSize: 24}}>
-              {'\n'}{uiText.signup.question.otpTransportQuestion}
-            </Text>
-          </Text>
-        }
-        subtitleTextStyle={[TextStyles.SUBTITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'left'}]}
+          }
+          subtitleTextStyle={[TextStyles.SUBTITLE, styles.subtitle]}
 
-        buttonRadius={70}
-        buttonBorderColor={COLOR_LIGHT}
-        buttonIconStyle={[TextStyles.TITLE, {color: COLOR_TEXT_LIGHT, textAlign: 'center'}]}
-        buttonIconTxtStyle={[TextStyles.BODY, {color: COLOR_TEXT_LIGHT, textAlign: 'center'}]}
-        buttonData={[
-          {label: 'Email', icon: 'md-mail', route: 'SignupEmail'}, 
-          {label: 'SMS', icon: 'md-text', route: 'SignupPhone'}
-        ]}
-        buttonOnPress={this.onButtonPressed.bind(this)}   //Bind is required
-
-      />
+          buttonRadius={64}
+          buttonBorderColor={COLOR_GREEN}
+          buttonIconStyle={[TextStyles.TITLE, styles.circleButtonIconStyle]}
+          buttonIconTxtStyle={[TextStyles.BODY, styles.circleButtonTextStyle]}
+          buttonData={[
+            {label: 'Email', icon: 'md-mail', route: 'SignupEmail'}, 
+            {label: 'SMS', icon: 'md-text', route: 'SignupPhone'}
+          ]}
+          buttonOnPress={this.onButtonPressed.bind(this)}   //Bind is required
+        />
+      </View>
     )
   }
 }
@@ -92,6 +96,7 @@ function mapStateToProps(state) {
     phone: state.signup.phone,
     phoneOnScreen: state.signup.phoneOnScreen,
     otpTransport: state.signup.otpTransport,
+    userName: state.signup.userName,
   }
 
   return { data }

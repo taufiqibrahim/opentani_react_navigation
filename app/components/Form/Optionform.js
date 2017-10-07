@@ -15,6 +15,7 @@ import {
   COLOR_LIGHT,
   COLOR_TEXT_LIGHT,
 } from '../../styles/ColorPalette';
+import { PADDING, MARGIN } from '../../styles/SpacingStyles';
 
 export default class Optionform extends Component {
 
@@ -30,7 +31,7 @@ export default class Optionform extends Component {
               width: r * 2,
               height: r * 2,
               borderRadius: r,
-              borderWidth: 2,
+              borderWidth: 1,
               borderColor: this.props.buttonBorderColor,
               alignItems: 'center',
               justifyContent: 'center',
@@ -50,45 +51,116 @@ export default class Optionform extends Component {
         scrollEnabled={false}
         contentContainerStyle={styles.wrapper}
       >
-        <View style={styles.boxUpper}>
-          <Text style={this.props.subtitleTextStyle}>
-            {this.props.subtitle}
-          </Text>
+
+        <View style={styles.boxOne}>
+          {this.props.title}
         </View>
-        <View style={styles.formWrapper}>
+        
+        <View style={styles.boxTwo}>
+          {this.props.subtitle}
+        </View>
+        
+        <View style={styles.boxThree}>
           <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
             {this.renderButtons()}
           </View>
         </View>
-        <View style={styles.boxLower}>
-          <View style={styles.buttonWrapper}>
-            {
-              this.props.buttonShow
-              ?
-              <FadeInView>
-                <StandardButton 
-                  buttonStyle={this.props.buttonStyles} 
-                  buttonTextStyle={this.props.buttonTextStyle} 
-                  buttonLabel={this.props.buttonLabel}
-                  buttonOnPress={this.props.buttonOnPress}
-                /> 
-              </FadeInView>
-              :
-              <View>
-              </View>
-            }
-          </View>
+        
+        <View style={styles.boxFour}>
+          <View style={styles.buttonWrapper}
+          />
         </View>
+
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  // Wrapper layout
-  wrapper: {
+  container: {
+    flex: 1,
+  },
+  boxOne: {
+    flex: 4,
+    backgroundColor: COLOR_GREEN,
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    justifyContent: 'flex-start',
+    paddingTop: PADDING.T,
+    paddingBottom: PADDING.B,
+    paddingHorizontal: PADDING.H,
+  },
+  boxOneShrinked: {
     flex: 1,
     backgroundColor: COLOR_GREEN,
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    justifyContent: 'flex-start',
+    paddingTop: PADDING.T,
+    paddingBottom: PADDING.B,
+    paddingHorizontal: PADDING.H,
+  },
+  boxTwo: {
+    flex: 5,
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    justifyContent: 'flex-start',
+    paddingTop: PADDING.T * 2,
+    paddingHorizontal: PADDING.H,
+  },
+  boxThree: {
+    flex: 4,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    justifyContent: 'flex-start',
+    paddingHorizontal: PADDING.H * 2,
+  },
+  boxThreeOne: {
+    flex:1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: PADDING.T,
+  },
+  boxThreeTwo: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    alignItems: 'stretch',
+    alignSelf: 'stretch',
+    justifyContent: 'flex-start',
+  },
+  boxFour: {
+    flex: 3,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    paddingHorizontal: PADDING.H,
+  },
+  boxFive: {
+    flex: 2,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingTop: PADDING.T,
+    paddingHorizontal: PADDING.H,
+  },
+  boxFiveShrinked: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingTop: PADDING.T,
+    paddingHorizontal: PADDING.H,
+  },
+  wrapper: {
+    flex: 1,
+    backgroundColor: 'transparent',
     alignItems: 'stretch',
     alignSelf: 'stretch',
     justifyContent: 'center',

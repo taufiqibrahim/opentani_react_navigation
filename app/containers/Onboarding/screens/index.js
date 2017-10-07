@@ -4,10 +4,19 @@ import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { NavigationActions } from 'react-navigation';
-import styles from './Styles';
+
 import SwiperComponent from '../../../components/Swiper';
 import Stories from './Stories';
 import End from './End';
+
+import {
+  COLOR_GREEN,
+  COLOR_LIGHT,
+  COLOR_DEEP_ORANGE
+} from '../../../styles/ColorPalette';
+import TextStyles from '../../../styles/TextStyles';
+import { ButtonSS } from '../../../styles/ButtonStyles';
+import styles from '../styles/';
 
 class OnboardingScreen extends Component {
   static navigationOptions = {
@@ -15,21 +24,21 @@ class OnboardingScreen extends Component {
   };
 
   onButtonPressed () {
-    console.log(this.props)
   }
 
   render(){
-    console.log(this.props)
     return(
       <SwiperComponent
         {...this.props}
         paginationDotStyle={styles.paginationDotStyle}
         paginationActiveDotStyle={styles.paginationActiveDotStyle}
         
-        swiperLeftButtonStyle={styles.buttonStyles}
-        swiperLeftButtonTextStyle={styles.buttonTextStyle}
-        swiperRightButtonStyle={styles.buttonStyles}
-        swiperRightButtonTextStyle={styles.buttonTextStyle}
+        swiperLeftButtonStyle={ButtonSS.buttonFillLarge}
+        swiperLeftButtonTextStyle={[TextStyles.H2, ButtonSS.buttonTextFillLarge]}
+        swiperLeftButtonLabel={'Lewati'}
+        swiperRightButtonStyle={ButtonSS.buttonFillLarge}
+        swiperRightButtonTextStyle={[TextStyles.H2, ButtonSS.buttonTextFillLarge]}
+        swiperRightButtonLabel={'Berikut'}
       >
         <View 
           style={styles.slide}
@@ -62,7 +71,8 @@ class OnboardingScreen extends Component {
             {...this.props}
             onboard_title={'opentani'}
             onboard_subtitle={'Bikin pertanian keren lagi'}
-            buttonLabel={'Bawa saya ke dalam aplikasi'}
+            buttonTextStyle={[TextStyles.H2, {color: COLOR_GREEN,}]}
+            buttonLabel={'BERGABUNG'}
           />
         </View>
       </SwiperComponent>
